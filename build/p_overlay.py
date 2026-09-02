@@ -1,0 +1,100 @@
+"""OBS overlay — "now playing". No fx.js, no nav; it is a transparent capture
+source, so it only reads overlay_state and paints one strip."""
+
+VER = "20260902a"
+
+
+def build():
+    return f"""<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>오버레이 | SHUNI OFFICIAL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Sans+KR:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{{
+      --ov-main:#BFD5EB; --ov-point:#7FB4E8; --ov-ink:rgba(9,14,30,.82); --ov-tx:#EAF2FB;
+      --font-body:"Noto Sans KR",sans-serif; --font-serif:"Cormorant Garamond",Georgia,serif;
+    }}
+    *{{box-sizing:border-box}}
+    html,body{{margin:0;background:transparent}}
+    body{{font-family:var(--font-body);overflow:hidden}}
+    .ov-card{{
+      position:fixed;left:24px;bottom:24px;
+      display:grid;grid-template-columns:auto 1fr;align-items:center;gap:16px;
+      padding:16px 26px 16px 20px;max-width:520px;
+      border:1px solid rgba(191,213,235,.4);background:var(--ov-ink);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      opacity:0;transform:translateY(14px);
+      transition:opacity 420ms ease,transform 420ms cubic-bezier(.2,.75,.25,1);
+    }}
+    .ov-card.on{{opacity:1;transform:none}}
+    .ov-mark{{
+      width:38px;height:38px;display:grid;place-items:center;
+      border:1px solid rgba(191,213,235,.42);color:var(--ov-main);font-size:17px;
+    }}
+    .ov-mark span{{display:block;animation:pulse 2.4s ease-in-out infinite}}
+    @keyframes pulse{{0%,100%{{opacity:.55;transform:scale(.9)}}50%{{opacity:1;transform:scale(1.08)}}}}
+    .ov-text{{min-width:0}}
+    .ov-lab{{
+      margin:0 0 5px;color:var(--ov-point);
+      font-family:var(--font-serif);font-style:italic;font-size:13.5px;letter-spacing:.22em;
+    }}
+    .ov-title{{
+      margin:0;color:var(--ov-tx);font-size:21px;font-weight:800;line-height:1.3;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }}
+    .ov-artist{{
+      margin:4px 0 0;color:rgba(234,242,251,.72);font-size:14px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }}
+    @media (prefers-reduced-motion:reduce){{
+      .ov-card{{transition:none}} .ov-mark span{{animation:none}}
+    }}
+  </style>
+</head>
+<body>
+  <div class="ov-card" id="ovCard">
+    <div class="ov-mark" aria-hidden="true"><span>✦</span></div>
+    <div class="ov-text">
+      <p class="ov-lab" id="ovLab">NOW PLAYING</p>
+      <p class="ov-title" id="ovTitle"></p>
+      <p class="ov-artist" id="ovArtist"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../supabase.js?v={VER}"></script>
+  <script>
+  (function () {{
+    var card = document.getElementById('ovCard');
+    var tEl = document.getElementById('ovTitle');
+    var aEl = document.getElementById('ovArtist');
+    var last = '';
+
+    function paint(row) {{
+      var on = !!(row && row.is_visible && (row.song_title || '').trim());
+      var sig = on ? (row.song_title + '\\u0000' + (row.song_artist || '')) : '';
+      if (sig === last) return;
+      last = sig;
+      if (!on) {{ card.classList.remove('on'); return; }}
+      tEl.textContent = row.song_title;
+      aEl.textContent = row.song_artist || '';
+      aEl.style.display = row.song_artist ? '' : 'none';
+      card.classList.add('on');
+    }}
+
+    async function poll() {{
+      try {{
+        var res = await db.from('overlay_state').select('*').eq('id', 1);
+        paint(res && res.data && res.data[0]);
+      }} catch (e) {{ /* keep the last frame on a hiccup rather than blinking off */ }}
+    }}
+    poll();
+    setInterval(poll, 4000);
+  }})();
+  </script>
+</body>
+</html>
+"""

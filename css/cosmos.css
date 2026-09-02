@@ -436,6 +436,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--point);outline-offs
   .header-side{padding:0 14px;gap:10px}
   .monogram{font-size:calc(20px * var(--fs-title))}
 }
+/* Nine links no longer fit with their numbers inside a 1000px embed. The
+   numbers are decorative, so they go first and the labels keep their gap. */
+@media (max-width:1040px){
+  .main-navigation{gap:clamp(10px,1.4vw,18px)}
+  .main-navigation a span{display:none}
+}
 @media (max-width:959px){
   .site-header{grid-template-columns:76px 1fr auto}
   .monogram{font-size:calc(17px * var(--fs-title))}
@@ -453,6 +459,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--point);outline-offs
   body.dark .main-navigation{background:rgba(8,13,28,.98)}
   .main-navigation.is-open{visibility:visible;opacity:1;pointer-events:auto}
   .main-navigation a{padding:15px 0;border-bottom:1px solid var(--line-soft);font-size:calc(14px * var(--fs-body))}
+  .main-navigation a span{display:inline}
   .header-side{gap:8px;padding:0 10px;border-left:0}
   .ask-btn{padding:7px 9px}
   .ask-btn span{display:none}

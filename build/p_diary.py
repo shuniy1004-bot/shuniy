@@ -1,28 +1,6 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <!-- Fixed width so phones render the desktop layout. No scale limits: setting
-       minimum-scale locks zoom and the in-app browser snaps back. -->
-  <meta name="viewport" content="width=1180, user-scalable=yes">
-  <meta name="color-scheme" content="light dark">
-  <meta name="description" content="SHUNI OFFICIAL — 일기">
-  <meta property="og:title" content="일기 | SHUNI OFFICIAL">
-  <meta property="og:description" content="SHUNI OFFICIAL — 일기">
-  <meta property="og:type" content="website">
-  <title>일기 | SHUNI OFFICIAL</title>
-  <link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/k4/k4187421/k4187421.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/cosmos.css?v=20260902a">
-  <script src="../pcview.js?v=20260902a"></script>
-  <style>
-    /* Same gate on the page itself, so a cached stylesheet cannot let the
-       hard-coded defaults flash before the DB values arrive. */
-    body:not(.dataready) .chapter{opacity:0}
-    [hidden]{display:none !important}
+from shell import page, SHARED_TAIL
 
+CSS = """
     .dy-item{
       border:1px solid var(--line);background:var(--glass);
       backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -51,46 +29,9 @@
       .dy-body{padding:0 18px 18px}
       .cmt-form{grid-template-columns:1fr}
     }
-  </style>
-</head>
-<body class="sn-sub">
-<script>
-  try { if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark'); } catch (e) {}
-  try { if (window.self !== window.top) document.body.classList.add('embed'); }
-  catch (e) { document.body.classList.add('embed'); }
-  /* Defined before the images parse: a hot-linked avatar can fail while the page
-     is still parsing, and the onerror attribute fires right then. */
-  function snAvatarFallback(img) {
-    img.style.display = 'none';
-    var ini = document.getElementById(img.dataset.ini || 'avatar-ini');
-    if (ini) ini.hidden = false;
-  }
-</script>
+"""
 
-  <header class="site-header">
-    <a href="../" class="monogram" aria-label="SHUNI 홈">Shuni</a>
-    <nav id="main-navigation" class="main-navigation" aria-label="메인 메뉴">
-      <a href="../">홈</a>
-      <a href="../profile/"><span>01</span>프로필</a>
-      <a href="../notice/"><span>02</span>공지</a>
-      <a href="../schedule/"><span>03</span>일정</a>
-      <a href="../song/"><span>04</span>노래책</a>
-      <a href="../dress/"><span>05</span>옷장</a>
-      <a href="../work/"><span>06</span>업보</a>
-      <a href="../diary/" class="on"><span>07</span>일기</a>
-      <a href="../game/"><span>08</span>미니게임</a>
-    </nav>
-    <div class="header-side">
-      <a class="open-full" href="?pc=1" target="_blank" rel="noreferrer">PC 화면 ↗</a>
-      <a class="live-link" id="live-link" href="https://www.sooplive.com/station/k4187421" target="_blank" rel="noreferrer"><i aria-hidden="true"></i>ON AIR</a>
-      <button class="ask-btn" type="button" data-letter aria-label="슈니에게 한마디 보내기"><span>SIGNAL</span> ✦</button>
-      <button class="mode-toggle" type="button" aria-label="밤하늘로">☾</button>
-    </div>
-    <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="메뉴 열기"><span></span><span></span></button>
-  </header>
-
-  <main class="chapter">
-    <div class="chapter-head rv">
+BODY = """    <div class="chapter-head rv">
       <div class="chapter-ghost" aria-hidden="true">Diary</div>
       <p class="kicker" data-t="dy-kicker">LOG 07 · JOURNAL</p>
       <h1><em data-t="dy-eyebrow">notes from the night</em>일기</h1>
@@ -99,57 +40,9 @@
 
     <div id="diary-list" class="rv"></div>
     <div class="sn-pager" id="pagination"></div>
+"""
 
-    <footer class="sn-footer rv">
-      <span>© <b id="copyright-year">2026</b> SHUNI OFFICIAL</span>
-      <b data-t="foot-mark">STAR ATLAS · LOG 07</b>
-      <span data-hook="fan_name">슈몽</span>
-    </footer>
-  </main>
-
-  <div id="snStars" aria-hidden="true"></div>
-  <div id="snMongs"></div>
-  <div id="snFx" aria-hidden="true"></div>
-  <div id="snMask"></div>
-  <div id="snLetter" role="dialog" aria-modal="true" aria-label="슈니에게 신호 보내기">
-    <p class="lk" data-t="modal-k">SEND A SIGNAL · 익명</p>
-    <h3 data-t="modal-h">슈니에게 한마디</h3>
-    <textarea id="snTa" placeholder="남긴 내용은 관리자만 확인합니다"></textarea>
-    <div class="acts">
-      <button id="snClose" type="button">CLOSE</button>
-      <button id="snSend" class="sn-btn-solid" type="button">보내기 ✦</button>
-    </div>
-    <p class="ok-msg" data-t="modal-ok">신호가 도착했습니다</p>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="../supabase.js?v=20260902a"></script>
-  <script src="../js/cosmos.js?v=20260902a"></script>
-  <script>
-
-    /* palette, type scale and fixed screen text come from profile.data on
-       every page, so the admin theme and text tabs reach all of them */
-    async function snCommon() {
-      try {
-        var res = await db.from('profile').select('data').eq('id', 1);
-        var d = (res && res.data && res.data[0] && res.data[0].data) || {};
-        SN.applyTheme(d);
-        SN.applyTexts(d);
-        SN.watchTexts(d);
-        var fn = SN.txt(d.fan_name).trim();
-        if (fn) document.querySelectorAll('[data-hook="fan_name"]').forEach(function (el) { el.textContent = fn; });
-        var lk = d.links && d.links.soop;
-        var lv = document.getElementById('live-link');
-        if (lv && SN.txt(lk).trim()) lv.href = SN.txt(lk);
-        SN.mongs({
-          img: SN.txt(d.mong_img).trim(),
-          count: d.mong_count != null ? d.mong_count : 3,
-          lines: Array.isArray(d.mong_lines) ? d.mong_lines : null
-        });
-        return d;
-      } catch (e) { SN.mongs({}); return {}; }
-    }
-
+SCRIPT = SHARED_TAIL + """
     (function () {
       var PAGE_SIZE = 15;
       var allData = [], currentPage = 1;
@@ -255,6 +148,9 @@
       }
       init();
     })();
-  </script>
-</body>
-</html>
+"""
+
+
+def build():
+    return page(slug="diary", title="일기", desc="일기", root="../", body=BODY,
+                css=CSS, script=SCRIPT, footer_mark="STAR ATLAS · LOG 07")

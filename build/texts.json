@@ -1,0 +1,310 @@
+{
+ "mn-frame": {
+  "page": "메인",
+  "text": "STATION k4187421"
+ },
+ "mn-kicker": {
+  "page": "메인",
+  "text": "SHUNI OFFICIAL · 관측 기록"
+ },
+ "mn-eyebrow": {
+  "page": "메인",
+  "text": "the little star"
+ },
+ "mn-live": {
+  "page": "메인",
+  "text": "방송국 가기 ↗"
+ },
+ "mn-more": {
+  "page": "메인",
+  "text": "프로필 자세히"
+ },
+ "mn-file": {
+  "page": "메인",
+  "text": "OBSERVER FILE · 기본 기록"
+ },
+ "mn-about": {
+  "page": "메인",
+  "text": "SIGNAL · 소개"
+ },
+ "mn-week": {
+  "page": "메인",
+  "text": "WEEKLY ORBIT · 이번 주 방송"
+ },
+ "mn-notice": {
+  "page": "메인",
+  "text": "LATEST LOG · 최근 공지"
+ },
+ "mn-notice-all": {
+  "page": "메인",
+  "text": "공지 전체 보기"
+ },
+ "mn-links": {
+  "page": "메인",
+  "text": "CONSTELLATION MAP · 슈니를 만나는 곳"
+ },
+ "mn-pages": {
+  "page": "메인",
+  "text": "STAR ATLAS · 페이지"
+ },
+ "foot-mark": {
+  "page": "메인",
+  "text": "STAR ATLAS · HOME"
+ },
+ "modal-k": {
+  "page": "메인",
+  "text": "SEND A SIGNAL · 익명"
+ },
+ "modal-h": {
+  "page": "메인",
+  "text": "슈니에게 한마디"
+ },
+ "modal-ok": {
+  "page": "메인",
+  "text": "신호가 도착했습니다"
+ },
+ "pf-kicker": {
+  "page": "프로필",
+  "text": "LOG 01 · OBSERVATION"
+ },
+ "pf-eyebrow": {
+  "page": "프로필",
+  "text": "the little star"
+ },
+ "pf-frame": {
+  "page": "프로필",
+  "text": "FRAME 001"
+ },
+ "pf-cast": {
+  "page": "프로필",
+  "text": "OBSERVER FILE · 기본 기록"
+ },
+ "pf-orbit": {
+  "page": "프로필",
+  "text": "ORBIT &amp; VOID · 좋아 / 싫어"
+ },
+ "pf-likes": {
+  "page": "프로필",
+  "text": "Orbit"
+ },
+ "pf-dislikes": {
+  "page": "프로필",
+  "text": "Void"
+ },
+ "pf-tmi": {
+  "page": "프로필",
+  "text": "SMALL FACTS · TMI"
+ },
+ "pf-signal": {
+  "page": "프로필",
+  "text": "SIGNAL · 소개"
+ },
+ "pf-signal-h": {
+  "page": "프로필",
+  "text": "밤하늘에서 보내는 신호"
+ },
+ "pf-personality": {
+  "page": "프로필",
+  "text": "Personality"
+ },
+ "pf-catch": {
+  "page": "프로필",
+  "text": "Catchphrase"
+ },
+ "pf-keywords": {
+  "page": "프로필",
+  "text": "Keywords"
+ },
+ "pf-week": {
+  "page": "프로필",
+  "text": "WEEKLY ORBIT · 이번 주 방송"
+ },
+ "pf-stats": {
+  "page": "프로필",
+  "text": "STAR CHART · 능력치"
+ },
+ "pf-mile": {
+  "page": "프로필",
+  "text": "TRAJECTORY · 목표"
+ },
+ "pf-song": {
+  "page": "프로필",
+  "text": "FREQUENCY · 노래"
+ },
+ "pf-song-sig": {
+  "page": "프로필",
+  "text": "SIGNATURE"
+ },
+ "pf-song-genre": {
+  "page": "프로필",
+  "text": "자주 부르는 장르"
+ },
+ "pf-song-avoid": {
+  "page": "프로필",
+  "text": "잘 안 부르는 장르"
+ },
+ "pf-song-btn": {
+  "page": "프로필",
+  "text": "노래 클립 듣기 ↗"
+ },
+ "pf-vod": {
+  "page": "프로필",
+  "text": "REPLAY · 다시보기"
+ },
+ "pf-filmo": {
+  "page": "프로필",
+  "text": "OBSERVATION LOG · 진행 · 참여한 컨텐츠"
+ },
+ "pf-links": {
+  "page": "프로필",
+  "text": "CONSTELLATION MAP · 슈니를 만나는 곳"
+ },
+ "pf-send": {
+  "page": "프로필",
+  "text": "SEND A SIGNAL"
+ },
+ "dy-kicker": {
+  "page": "일기",
+  "text": "LOG 07 · JOURNAL"
+ },
+ "dy-eyebrow": {
+  "page": "일기",
+  "text": "notes from the night"
+ },
+ "dy-desc": {
+  "page": "일기",
+  "text": "슈니가 남긴 기록입니다. 한마디 남길 수 있습니다."
+ },
+ "dy-cmt": {
+  "page": "일기",
+  "text": "COMMENTS · 한마디"
+ },
+ "dr-kicker": {
+  "page": "옷장",
+  "text": "LOG 05 · WARDROBE"
+ },
+ "dr-eyebrow": {
+  "page": "옷장",
+  "text": "what the star wears"
+ },
+ "dr-desc": {
+  "page": "옷장",
+  "text": "헤어 · 의상 · 렌즈를 모아 두었습니다."
+ },
+ "dr-mode-new": {
+  "page": "옷장",
+  "text": "✦ 새 옷"
+ },
+ "dr-mode-old": {
+  "page": "옷장",
+  "text": "◇ 기존 옷"
+ },
+ "gm-kicker": {
+  "page": "미니게임",
+  "text": "LOG 08 · DRAW LOTS"
+ },
+ "gm-eyebrow": {
+  "page": "미니게임",
+  "text": "let the stars decide"
+ },
+ "gm-desc": {
+  "page": "미니게임",
+  "text": "방송에서 뽑기할 때 쓰는 사다리타기 · 구슬 레이스 · 룰렛입니다."
+ },
+ "gm-m1": {
+  "page": "미니게임",
+  "text": "사다리타기"
+ },
+ "gm-m2": {
+  "page": "미니게임",
+  "text": "구슬 레이스"
+ },
+ "gm-m3": {
+  "page": "미니게임",
+  "text": "룰렛"
+ },
+ "gm-ladder": {
+  "page": "미니게임",
+  "text": "LADDER · 사다리타기"
+ },
+ "gm-marble": {
+  "page": "미니게임",
+  "text": "MARBLE RACE · 구슬 레이스"
+ },
+ "gm-wheel": {
+  "page": "미니게임",
+  "text": "SPIN WHEEL · 룰렛"
+ },
+ "nt-kicker": {
+  "page": "공지",
+  "text": "LOG 02 · BROADCAST"
+ },
+ "nt-eyebrow": {
+  "page": "공지",
+  "text": "from the observatory"
+ },
+ "nt-desc": {
+  "page": "공지",
+  "text": "슈니가 전하는 소식입니다."
+ },
+ "sc-kicker": {
+  "page": "일정",
+  "text": "LOG 03 · ORBIT"
+ },
+ "sc-eyebrow": {
+  "page": "일정",
+  "text": "when the star is up"
+ },
+ "sc-desc": {
+  "page": "일정",
+  "text": "방송 예정과 휴방을 달력으로 정리했습니다."
+ },
+ "sc-up": {
+  "page": "일정",
+  "text": "UPCOMING · 다가오는 일정"
+ },
+ "sg-kicker": {
+  "page": "노래책",
+  "text": "LOG 04 · FREQUENCY"
+ },
+ "sg-eyebrow": {
+  "page": "노래책",
+  "text": "what the star sings"
+ },
+ "sg-desc": {
+  "page": "노래책",
+  "text": "신청할 수 있는 곡 목록입니다."
+ },
+ "sg-pick": {
+  "page": "노래책",
+  "text": "RANDOM PICK · 랜덤 선곡"
+ },
+ "sg-picked": {
+  "page": "노래책",
+  "text": "PICKED"
+ },
+ "sg-roll": {
+  "page": "노래책",
+  "text": "곡 뽑기 ✦"
+ },
+ "sg-again": {
+  "page": "노래책",
+  "text": "다시 뽑기"
+ },
+ "sg-copy": {
+  "page": "노래책",
+  "text": "제목 복사"
+ },
+ "wk-kicker": {
+  "page": "업보",
+  "text": "LOG 06 · LEDGER"
+ },
+ "wk-eyebrow": {
+  "page": "업보",
+  "text": "what the star owes"
+ },
+ "wk-desc": {
+  "page": "업보",
+  "text": "시청자별 업보 기록입니다. 카드를 누르면 종류별로 볼 수 있습니다."
+ }
+}

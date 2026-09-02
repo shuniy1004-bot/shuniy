@@ -1,0 +1,138 @@
+    <div class="chapter-head rv">
+      <div class="chapter-ghost" aria-hidden="true">Shuni</div>
+      <p class="kicker" data-t="pf-kicker">LOG 01 · OBSERVATION</p>
+      <h1><em data-t="pf-eyebrow">the little star</em><span data-hook="name">슈니</span></h1>
+      <p class="desc" data-hook="tagline">너희는 내 우주야</p>
+    </div>
+
+    <div class="pf-hero rv">
+      <img id="pf-hero-img" src="../assets/shuni-hanbok.webp" alt="슈니 프로필 사진" referrerpolicy="no-referrer">
+      <div class="wash" aria-hidden="true"></div>
+      <div class="cap"><b data-hook="quote">"너희는 내 우주야"</b></div>
+      <span class="frame" data-t="pf-frame">FRAME 001</span>
+    </div>
+
+    <div class="pf-grid">
+      <div class="pf-col">
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-cast">OBSERVER FILE · 기본 기록</p>
+          <div class="pf-ava">
+            <div class="ring" id="avatarWrap" role="button" tabindex="0" aria-label="프로필 사진">
+              <img id="avatar" class="avatar" alt="슈니 프로필 사진"
+                   src="https://profile.img.sooplive.co.kr/LOGO/k4/k4187421/k4187421.jpg"
+                   referrerpolicy="no-referrer" onerror="snAvatarFallback(this)">
+              <span class="ini" id="avatar-ini" hidden>S</span>
+            </div>
+            <b class="nm" data-hook="name2">슈니</b>
+            <span class="en" data-hook="name_en">SHUNI</span>
+          </div>
+          <div class="sn-rows">
+            <div class="sn-row"><b>BIRTHDAY</b><span><span data-hook="birthday-txt">10월 4일</span> · <b class="dd" id="pf-dday">D-?</b></span></div>
+            <div class="sn-row"><b>DEBUT</b><span><span data-hook="debut">2025.08.12</span> · <b class="dd" id="pf-dplus">D+?</b></span></div>
+            <div class="sn-row"><b>AGENCY</b><span data-hook="agency">개인세</span></div>
+            <div class="sn-row"><b>FANDOM</b><span data-hook="fan_name">슈몽</span></div>
+            <div class="sn-row"><b>ITEM</b><span data-hook="item">별자리 헤일로</span></div>
+            <div class="sn-row"><b>MOTIF</b><span data-hook="motif">별 · 달 · 밤하늘</span></div>
+            <div class="sn-row" id="row-mbti" hidden><b>MBTI</b><span data-hook="mbti"></span></div>
+            <div class="sn-row" id="row-age" hidden><b>AGE</b><span data-hook="age"></span></div>
+            <div class="sn-row"><b>SHOWTIME</b><span data-hook="schedule">매일 저녁 7시</span></div>
+          </div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-orbit">ORBIT &amp; VOID · 좋아 / 싫어</p>
+          <div class="ld-block">
+            <p class="ld-head"><i>✦</i><b data-t="pf-likes">Orbit</b></p>
+            <div class="sn-chips" id="likes"></div>
+          </div>
+          <div class="ld-block">
+            <p class="ld-head"><i style="color:var(--tx-dim)">✕</i><b data-t="pf-dislikes">Void</b></p>
+            <div class="sn-chips" id="dislikes"></div>
+          </div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-tmi">SMALL FACTS · TMI</p>
+          <ul class="tmi-list" id="tmi"></ul>
+        </section>
+      </div>
+
+      <div class="pf-col">
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-signal">SIGNAL · 소개</p>
+          <h2 data-t="pf-signal-h">밤하늘에서 보내는 신호</h2>
+          <p style="margin:0;color:var(--tx-soft);font-size:calc(14.5px * var(--fs-body));line-height:1.85" data-hook="intro">
+            별과 달, 밤하늘을 모티브로 하는 개인세 버추얼 슈니입니다.
+            매일 저녁 7시에 켜서 게임하고 소통하고 노래해요. 배틀그라운드를 자주 합니다.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:22px;margin-top:22px">
+            <div>
+              <span class="sn-label" data-t="pf-personality">Personality</span>
+              <div class="sn-chips" id="personality"></div>
+            </div>
+            <div>
+              <span class="sn-label" data-t="pf-catch">Catchphrase</span>
+              <div class="sn-chips" id="catchphrases"></div>
+            </div>
+            <div>
+              <span class="sn-label" data-t="pf-keywords">Keywords</span>
+              <div class="sn-chips" id="keywords"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-week">WEEKLY ORBIT · 이번 주 방송</p>
+          <div class="week-strip" id="week"></div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-stats">STAR CHART · 능력치</p>
+          <div class="stats-grid" id="stats"></div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-mile">TRAJECTORY · 목표</p>
+          <div class="mile" id="milestones"></div>
+        </section>
+      </div>
+    </div>
+
+    <section class="sn-card rv" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-song">FREQUENCY · 노래</p>
+      <div class="song-grid">
+        <div class="song-box">
+          <span class="k" data-t="pf-song-sig">SIGNATURE</span>
+          <span class="v" data-hook="song_signature">별의 하모니</span>
+        </div>
+        <div class="song-box">
+          <span class="k" data-t="pf-song-genre">자주 부르는 장르</span>
+          <span class="v sm" data-hook="song_genres">J-POP, K-POP</span>
+        </div>
+        <div class="song-box">
+          <span class="k" data-t="pf-song-avoid">잘 안 부르는 장르</span>
+          <span class="v sm" data-hook="song_avoid">팝송</span>
+        </div>
+      </div>
+      <div style="margin-top:18px">
+        <a class="sn-btn" id="song-clip" href="https://youtu.be/ey96X6dT-y8" target="_blank" rel="noreferrer" data-t="pf-song-btn">노래 클립 듣기 ↗</a>
+      </div>
+    </section>
+
+    <section class="sn-card rv" id="songs-card" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-vod">REPLAY · 다시보기</p>
+      <div id="ovod-grid"></div>
+    </section>
+
+    <section class="sn-card rv" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-filmo">OBSERVATION LOG · 진행 · 참여한 컨텐츠</p>
+      <div class="filmo" id="contents"></div>
+    </section>
+
+    <section class="sn-card rv" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-links">CONSTELLATION MAP · 슈니를 만나는 곳</p>
+      <div class="link-grid" id="links"></div>
+      <div style="margin-top:18px">
+        <button class="sn-btn" type="button" data-letter data-t="pf-send">SEND A SIGNAL <span aria-hidden="true">✦</span></button>
+      </div>
+    </section>

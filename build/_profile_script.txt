@@ -1,0 +1,229 @@
+
+  /* Profile data model — keep identical to admin profileKeys and the input ids f-{key}.
+     Changing a key here means changing it in admin/index.html too, in both places.
+     week: index 0=월 ... 6=일 (same order as the admin day checkboxes) */
+  (function () {
+    var DEFAULTS = {
+      name: '슈니', name_en: 'SHUNI', soop_id: 'k4187421', avatar: '', 'profile-hero': '',
+      tagline: '너희는 내 우주야',
+      quote: '"너희는 내 우주야"',
+      intro: '별과 달, 밤하늘을 모티브로 하는 개인세 버추얼 슈니입니다.\n매일 저녁 7시에 켜서 게임하고 소통하고 노래해요. 배틀그라운드를 자주 합니다.',
+      birthday: '10-04', debut: '2025.08.12', agency: '개인세',
+      mbti: '', age: '', fan_name: '슈몽',
+      item: '별자리 헤일로', motif: '별 · 달 · 밤하늘 · 우주',
+      schedule: '매일 저녁 7시',
+      keywords: ['소통', '게임', '노래', '배틀그라운드', '별자리'],
+      personality: ['도도한', '틱틱대는', '에겐', '낯가림', '야랄'],
+      catchphrases: ['너희는 내 우주야'],
+      likes: ['새우', '애니'],
+      dislikes: ['벌레', '공포'],
+      tmi: ['모티브는 별과 달, 밤하늘', '아이템은 별자리 헤일로', '배틀그라운드를 자주 합니다', '노래는 정기적으로 부릅니다'],
+      stats: [
+        { label: '도도함', value: 90 }, { label: '텐션', value: 80 },
+        { label: '낯가림', value: 70 }, { label: '가창력', value: 78 },
+        { label: '게임 피지컬', value: 72 }, { label: '별 관측력', value: 95 }
+      ],
+      milestones: [],
+      contents: [],
+      week: ['19:00', '19:00', '19:00', '19:00', '19:00', '19:00', '19:00'],
+      song_signature: '별의 하모니',
+      song_genres: 'J-POP, K-POP',
+      song_avoid: '팝송',
+      song_clip: 'https://youtu.be/ey96X6dT-y8',
+      mong_img: '', mong_count: 3,
+      mong_lines: ['반짝', '슈니 보러 왔어?', '오늘도 별 하나', '히히', '나 여기 있다', '별 이어줘'],
+      links: {
+        soop: 'https://www.sooplive.com/station/k4187421',
+        youtube: 'https://www.youtube.com/@shuni_0812',
+        x: 'https://x.com/shuni_1',
+        cafe: ''
+      }
+    };
+    var esc = SN.esc, txt = SN.txt;
+    function arr(v, fb) {
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'string' && v.trim()) return v.split(/\n|,/).map(function (s) { return s.trim(); }).filter(Boolean);
+      return fb;
+    }
+    function setHook(k, v) {
+      document.querySelectorAll('[data-hook="' + k + '"]').forEach(function (el) {
+        if (v != null && txt(v).trim() !== '') el.innerHTML = esc(v).replace(/\n/g, '<br>');
+      });
+    }
+    function chips(id, list, cls) {
+      var el = document.getElementById(id); if (!el) return;
+      el.innerHTML = (list || []).map(function (x) {
+        return '<span class="sn-chip' + (cls ? ' ' + cls : '') + '">' + esc(x) + '</span>';
+      }).join('') || '<span style="color:var(--tx-dim);font-size:12px">—</span>';
+    }
+    function renderTmi(list) {
+      var el = document.getElementById('tmi'); if (!el) return;
+      el.innerHTML = (list || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('')
+        || '<li style="color:var(--tx-dim)">아직 등록된 내용이 없습니다</li>';
+    }
+    function renderStats(list) {
+      var el = document.getElementById('stats'); if (!el) return;
+      var rows = (list || []).map(function (s) {
+        var label = txt(s && s.label != null ? s.label : s);
+        var val = parseInt(s && s.value != null ? s.value : 0, 10) || 0;
+        val = Math.max(0, Math.min(100, val));
+        return '<div class="stat-item"><span class="sl">' + esc(label) + '</span><span class="sv">' + val + '</span>' +
+               '<span class="bar"><span class="fl" data-w="' + val + '"></span></span></div>';
+      }).join('');
+      el.innerHTML = rows || '<div class="sn-empty">아직 등록된 능력치가 없습니다</div>';
+      /* fill directly after a re-render — the reveal observer only fires once */
+      setTimeout(function () {
+        el.querySelectorAll('.fl[data-w]').forEach(function (f) { f.style.width = f.dataset.w + '%'; });
+      }, 120);
+    }
+    function renderMilestones(list) {
+      var el = document.getElementById('milestones'); if (!el) return;
+      var rows = (list || []).map(function (m) {
+        var state, text;
+        if (typeof m === 'string') { var p = m.split('|'); state = p[0] || ''; text = p[1] || ''; }
+        else { m = m || {}; state = txt(m.state); text = txt(m.text); }
+        var done = /완료|달성|done/i.test(state);
+        return '<div class="mile-row' + (done ? ' done' : '') + '"><span class="st">' + esc(state || '진행') + '</span>' +
+               '<span class="tx">' + esc(text) + '</span></div>';
+      }).join('');
+      el.innerHTML = rows || '<div class="sn-empty">아직 등록된 목표가 없습니다</div>';
+    }
+    function renderWeek(week) {
+      var el = document.getElementById('week'); if (!el) return;
+      var D = ['월', '화', '수', '목', '금', '토', '일'];
+      var jsDay = new Date().getDay();          /* JS: 0=일 -> our index: 0=월 */
+      var todayIdx = (jsDay + 6) % 7;
+      el.innerHTML = D.map(function (d, i) {
+        var t = txt(week && week[i] != null ? week[i] : '').trim();
+        var off = !t || t === '휴방' || t === '-';
+        return '<div class="week-cell' + (off ? ' off' : '') + (i === todayIdx ? ' today' : '') + '">' +
+               '<span class="d">' + d + '</span><span class="t">' + (off ? '휴방' : esc(t)) + '</span></div>';
+      }).join('');
+    }
+    function renderContents(list) {
+      var el = document.getElementById('contents'); if (!el) return;
+      var rows = (list || []).map(function (c) {
+        c = c || {};
+        var link = txt(c.url).trim();
+        return '<div class="filmo-row"><span class="dt">' + esc(c.date || '') + '</span>' +
+               '<span class="tt">' + esc(c.title || '') + '</span>' +
+               (link ? '<a class="go" href="' + esc(link) + '" target="_blank" rel="noreferrer">WATCH ↗</a>' : '<span></span>') +
+               '</div>';
+      }).join('');
+      el.innerHTML = rows || '<div class="sn-empty">아직 등록된 컨텐츠가 없습니다</div>';
+    }
+    function renderLinks(L) {
+      var el = document.getElementById('links'); if (!el) return;
+      L = L || {};
+      var defs = [['SOOP', '방송국', L.soop], ['YOUTUBE', '유튜브', L.youtube], ['X', 'SNS', L.x], ['CAFE', '팬카페', L.cafe]];
+      el.innerHTML = defs.filter(function (d) { return txt(d[2]).trim() !== ''; }).map(function (d) {
+        return '<a class="link-cell" href="' + esc(d[2]) + '" target="_blank" rel="noreferrer"><b>' + d[0] + ' ↗</b><span>' + d[1] + '</span></a>';
+      }).join('');
+      var lv = document.getElementById('live-link');
+      if (lv && txt(L.soop).trim()) lv.href = txt(L.soop);
+    }
+    function applyAll(d) {
+      d = d || {};
+      var g = function (k) {
+        var v = d[k];
+        return (v === undefined || v === null || txt(v).trim() === '') ? DEFAULTS[k] : v;
+      };
+      setHook('name', g('name')); setHook('name2', g('name'));
+      setHook('name_en', txt(g('name_en')).split('').join(' ').replace(/\s{2,}/g, '  '));
+      setHook('tagline', g('tagline')); setHook('quote', g('quote')); setHook('intro', g('intro'));
+      setHook('debut', g('debut')); setHook('agency', g('agency'));
+      setHook('fan_name', g('fan_name')); setHook('fan_name2', g('fan_name'));
+      setHook('item', g('item')); setHook('motif', g('motif'));
+      setHook('schedule', g('schedule'));
+      setHook('song_signature', g('song_signature'));
+      setHook('song_genres', g('song_genres'));
+      setHook('song_avoid', g('song_avoid'));
+      var clip = txt(g('song_clip')).trim(), ce = document.getElementById('song-clip');
+      if (ce) { if (clip) { ce.href = clip; ce.style.display = ''; } else ce.style.display = 'none'; }
+
+      var bd = txt(g('birthday')), bp = bd.split('-');
+      if (bp.length === 2) setHook('birthday-txt', (+bp[0]) + '월 ' + (+bp[1]) + '일');
+      var n = SN.dday(bd), dd = document.getElementById('pf-dday');
+      if (dd) dd.textContent = n == null ? '' : (n === 0 ? 'TODAY ✦' : 'D-' + n);
+      var dp = SN.dplus(txt(g('debut'))), de = document.getElementById('pf-dplus');
+      if (de) de.textContent = dp == null ? '' : 'D+' + dp;
+
+      ['mbti', 'age'].forEach(function (k) {
+        var row = document.getElementById('row-' + k), v = txt(d[k]).trim();
+        if (row && v) { row.hidden = false; setHook(k, v); }
+      });
+
+      var ph = txt(d['profile-hero']).trim();
+      if (ph) { var pe = document.getElementById('pf-hero-img'); if (pe) pe.src = ph; }
+      var av = document.getElementById('avatar');
+      var direct = txt(d.avatar).trim();
+      if (av) av.src = direct || SN.soopAvatar(txt(g('soop_id'))) || av.src;
+
+      chips('likes', arr(d.likes, DEFAULTS.likes));
+      chips('dislikes', arr(d.dislikes, DEFAULTS.dislikes), 'no');
+      chips('personality', arr(d.personality, DEFAULTS.personality));
+      chips('catchphrases', arr(d.catchphrases, DEFAULTS.catchphrases).map(function (c) { return '"' + c + '"'; }));
+      chips('keywords', arr(d.keywords, DEFAULTS.keywords).map(function (k) { return '#' + String(k).replace(/^#/, ''); }));
+      renderTmi(arr(d.tmi, DEFAULTS.tmi));
+      renderStats(Array.isArray(d.stats) && d.stats.length ? d.stats : DEFAULTS.stats);
+      renderMilestones(Array.isArray(d.milestones) ? d.milestones : arr(d.milestones, DEFAULTS.milestones));
+      renderWeek(Array.isArray(d.week) && d.week.length === 7 ? d.week : DEFAULTS.week);
+      renderContents(Array.isArray(d.contents) ? d.contents : DEFAULTS.contents);
+      renderLinks(d.links && typeof d.links === 'object' ? d.links : DEFAULTS.links);
+
+      SN.applyTheme(d);
+      SN.applyTexts(d); SN.watchTexts(d);
+      SN.mongs({
+        img: txt(d.mong_img).trim(),
+        count: d.mong_count != null ? d.mong_count : DEFAULTS.mong_count,
+        lines: arr(d.mong_lines, DEFAULTS.mong_lines)
+      });
+    }
+
+    /* Replay grid — original_songs(vod_id, title) filled from admin */
+    function renderVod(rows) {
+      var el = document.getElementById('ovod-grid'); if (!el) return;
+      if (!rows || !rows.length) {
+        el.innerHTML = '<div class="vod-ph">등록된 다시보기가 없습니다</div>' +
+                       '<div class="vod-ph">등록된 다시보기가 없습니다</div>' +
+                       '<div class="vod-ph">등록된 다시보기가 없습니다</div>';
+        return;
+      }
+      el.innerHTML = rows.map(function (r) {
+        var id = txt(r.vod_id).trim();
+        if (!id) return '';
+        return '<div><div class="vod-box"><iframe src="https://vod.sooplive.co.kr/player/' + esc(id) +
+               '/embed" allowfullscreen loading="lazy" title="' + esc(r.title || '다시보기') + '"></iframe></div>' +
+               '<p class="vod-cap">' + esc(r.title || '') + '</p></div>';
+      }).join('');
+    }
+
+    async function load() {
+      try {
+        var res = await db.from('profile').select('data').eq('id', 1);
+        var d = res && res.data && res.data[0] && res.data[0].data;
+        applyAll(d || {});
+      } catch (e) { applyAll({}); }
+      try {
+        var songs = await fetchAll('original_songs', { order: 'sort_order', asc: true });
+        renderVod(songs);
+      } catch (e) { renderVod([]); }
+      finally { SN.dataReady(); SN.reveal(); }
+    }
+
+    applyAll({});        /* render defaults immediately, then let the DB overwrite */
+    renderVod([]);
+    load();
+
+    var wrap = document.getElementById('avatarWrap');
+    if (wrap) {
+      var tap = function () {
+        SN.bump(wrap);
+        var r = wrap.getBoundingClientRect();
+        SN.pop(r.left + r.width / 2, r.top + r.height / 2, 6);
+      };
+      wrap.addEventListener('click', tap);
+      wrap.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); } });
+    }
+  })();
+  
