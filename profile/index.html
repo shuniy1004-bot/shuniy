@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <!-- Fixed width so phones render the desktop layout. No scale limits: setting
+       minimum-scale locks zoom and the in-app browser snaps back. -->
+  <meta name="viewport" content="width=1180, user-scalable=yes">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="SHUNI OFFICIAL — 프로필">
+  <meta property="og:title" content="프로필 | SHUNI OFFICIAL">
+  <meta property="og:description" content="SHUNI OFFICIAL — 프로필">
+  <meta property="og:type" content="website">
+  <title>프로필 | SHUNI OFFICIAL</title>
+  <link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/k4/k4187421/k4187421.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/cosmos.css?v=20260902a">
+  <script src="../pcview.js?v=20260902a"></script>
+  <style>
+    /* Same gate on the page itself, so a cached stylesheet cannot let the
+       hard-coded defaults flash before the DB values arrive. */
+    body:not(.dataready) .chapter{opacity:0}
+    [hidden]{display:none !important}
+
+
+    .pf-hero{position:relative;margin:0 0 26px;height:clamp(240px,38vh,420px);border:1px solid var(--line);overflow:hidden}
+    .pf-hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+    .pf-hero .wash{position:absolute;inset:0;background:linear-gradient(90deg,rgba(233,242,251,.62),transparent 46%),linear-gradient(0deg,rgba(214,231,247,.66),transparent 42%)}
+    body.dark .pf-hero .wash{background:linear-gradient(90deg,rgba(6,11,24,.66),transparent 46%),linear-gradient(0deg,rgba(5,9,20,.72),transparent 42%)}
+    .pf-hero .cap{
+      position:absolute;left:22px;bottom:18px;display:grid;gap:6px;
+      max-width:calc(100% - 44px);padding:10px 14px;
+      background:linear-gradient(90deg,rgba(255,255,255,.88),rgba(255,255,255,.58));
+      backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+    }
+    body.dark .pf-hero .cap{background:linear-gradient(90deg,rgba(6,11,24,.72),rgba(6,11,24,.34))}
+    .pf-hero .cap b{
+      color:var(--tx);font-family:var(--font-serif);font-weight:400;
+      font-size:calc(clamp(20px,2.2vw,30px) * var(--fs-title));letter-spacing:-.02em;
+    }
+    .pf-hero .frame{
+      position:absolute;right:16px;top:14px;padding:4px 9px;
+      background:rgba(255,255,255,.82);color:var(--accent-txt);
+      backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+      font-size:calc(12px * var(--fs-label));font-weight:800;letter-spacing:.24em;
+    }
+    body.dark .pf-hero .frame{background:rgba(6,11,24,.6)}
+
+    .pf-grid{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:22px;align-items:start}
+    .pf-col{display:grid;gap:22px}
+
+    .pf-ava{display:grid;justify-items:center;gap:14px;padding-bottom:24px;border-bottom:1px solid var(--line-soft);margin-bottom:20px}
+    .pf-ava .ring{
+      position:relative;width:132px;height:132px;border-radius:50%;
+      border:1px solid var(--line);padding:6px;cursor:pointer;
+      transition:transform 160ms ease;
+    }
+    .pf-ava .ring:hover{transform:scale(1.04)}
+    .pf-ava .ring.sn-bump{animation:abump 520ms cubic-bezier(.2,.75,.25,1)}
+    @keyframes abump{30%{transform:scale(1.14)}60%{transform:scale(.95)}}
+    .pf-ava .ring::after{content:"✦";position:absolute;top:-9px;left:50%;transform:translateX(-50%);color:var(--accent-txt);font-size:14px}
+    .pf-ava img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;background:var(--main)}
+    .pf-ava .ini{position:absolute;inset:6px;display:grid;place-items:center;border-radius:50%;background:var(--main);color:#14273A;font-family:var(--font-serif);font-style:italic;font-size:46px}
+    .pf-ava .nm{font-family:var(--font-serif);font-weight:400;font-size:calc(32px * var(--fs-title));letter-spacing:-.03em;line-height:1}
+    .pf-ava .en{color:var(--tx-dim);font-size:calc(13px * var(--fs-label));font-weight:800;letter-spacing:.34em}
+
+    .ld-head{display:flex;align-items:baseline;gap:9px;margin:0 0 10px}
+    .ld-head i{font-style:normal;color:var(--accent-txt);font-size:13px}
+    .ld-head b{font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:calc(16px * var(--fs-body));letter-spacing:.06em}
+    .ld-block + .ld-block{margin-top:20px}
+
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}
+
+    .week-strip{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--line-soft)}
+    .week-cell{display:grid;gap:6px;justify-items:center;padding:14px 2px 12px;border-right:1px solid var(--line-soft);min-width:0}
+    .week-cell:last-child{border-right:0}
+    .week-cell .d{font-family:var(--font-serif);font-style:italic;font-size:calc(13.5px * var(--fs-label));color:var(--tx-dim)}
+    .week-cell .t{font-size:calc(13.5px * var(--fs-body));font-weight:800;white-space:nowrap}
+    .week-cell.off .t{color:var(--tx-dim);font-weight:500}
+    .week-cell.today{background:rgba(126,180,232,.14)}
+    .week-cell.today .d{color:var(--accent-txt)}
+
+    .filmo{display:grid}
+    .filmo-row{display:grid;grid-template-columns:96px 1fr auto;gap:16px;align-items:baseline;padding:13px 2px;border-bottom:1px solid var(--line-soft)}
+    .filmo-row:last-child{border-bottom:0}
+    .filmo-row .dt{font-family:var(--font-serif);font-style:italic;font-size:calc(14px * var(--fs-label));color:var(--tx-dim)}
+    .filmo-row .tt{font-size:calc(15px * var(--fs-body));font-weight:700;line-height:1.5}
+    .filmo-row .go{font-size:calc(13px * var(--fs-label));font-weight:900;letter-spacing:.14em;color:var(--accent-txt)}
+    .filmo-row .go:hover{text-decoration:underline}
+
+    .mile{display:grid}
+    .mile-row{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:12px 2px;border-bottom:1px solid var(--line-soft)}
+    .mile-row:last-child{border-bottom:0}
+    .mile-row .st{padding:3px 9px;border:1px solid var(--line);color:var(--accent-txt);font-size:calc(13px * var(--fs-label));font-weight:900;letter-spacing:.1em;white-space:nowrap}
+    .mile-row.done .st{background:var(--point);border-color:var(--point);color:#fff}
+    .mile-row .tx{font-size:calc(15px * var(--fs-body));line-height:1.6}
+
+    .tmi-list{display:grid;gap:0}
+    .tmi-list li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;padding:11px 2px;border-bottom:1px solid var(--line-soft);font-size:calc(15px * var(--fs-body));line-height:1.65}
+    .tmi-list li:last-child{border-bottom:0}
+    .tmi-list li::before{content:"✦";color:var(--accent-txt);font-size:12px}
+    .tmi-list{list-style:none;margin:0;padding:0}
+
+    .song-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line-soft)}
+    .song-box{display:grid;gap:7px;padding:18px 16px;border-right:1px solid var(--line-soft);min-width:0}
+    .song-box:last-child{border-right:0}
+    .song-box .k{color:var(--tx-dim);font-size:calc(13px * var(--fs-label));font-weight:800;letter-spacing:.2em}
+    .song-box .v{font-family:var(--font-serif);font-size:calc(19px * var(--fs-title));line-height:1.3}
+    .song-box .v.sm{font-family:var(--font-body);font-size:calc(15px * var(--fs-body));font-weight:700}
+
+    #ovod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px}
+    #ovod-grid .vod-ph,#ovod-grid .vod-box{position:relative;border:1px solid var(--line-soft);aspect-ratio:16/9;overflow:hidden}
+    #ovod-grid .vod-ph{display:grid;place-items:center;background:rgba(126,180,232,.1);color:var(--tx-dim);font-size:calc(13.5px * var(--fs-body))}
+    #ovod-grid iframe{width:100%;height:100%;border:0;display:block}
+    .vod-cap{margin:7px 2px 0;font-size:calc(13.5px * var(--fs-body));font-weight:700;line-height:1.45}
+
+    .link-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .link-cell{display:grid;gap:5px;padding:16px;border:1px solid var(--line);transition:background 160ms ease}
+    .link-cell:hover{background:rgba(126,180,232,.14)}
+    .link-cell b{font-size:calc(13.5px * var(--fs-label));font-weight:900;letter-spacing:.14em}
+    .link-cell span{color:var(--tx-dim);font-size:calc(13.5px * var(--fs-label));letter-spacing:.04em}
+
+    @media (max-width:959px){
+      .pf-grid{grid-template-columns:1fr}
+      .stats-grid{grid-template-columns:1fr}
+      .link-grid{grid-template-columns:repeat(2,1fr)}
+      .song-grid{grid-template-columns:1fr}
+      .song-box{border-right:0;border-bottom:1px solid var(--line-soft)}
+      .song-box:last-child{border-bottom:0}
+      #ovod-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:620px){
+      .week-cell{padding:12px 2px 10px}
+      .week-cell .t{font-size:calc(13.5px * var(--fs-body))}
+      .filmo-row{grid-template-columns:78px 1fr auto;gap:10px}
+      #ovod-grid{grid-template-columns:1fr}
+    }
+    </style>
+</head>
+<body class="sn-sub">
+<script>
+  try { if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark'); } catch (e) {}
+  try { if (window.self !== window.top) document.body.classList.add('embed'); }
+  catch (e) { document.body.classList.add('embed'); }
+  /* Defined before the images parse: a hot-linked avatar can fail while the page
+     is still parsing, and the onerror attribute fires right then. */
+  function snAvatarFallback(img) {
+    img.style.display = 'none';
+    var ini = document.getElementById(img.dataset.ini || 'avatar-ini');
+    if (ini) ini.hidden = false;
+  }
+</script>
+
+  <header class="site-header">
+    <a href="../" class="monogram" aria-label="SHUNI 홈">Shuni</a>
+    <nav id="main-navigation" class="main-navigation" aria-label="메인 메뉴">
+      <a href="../profile/" class="on"><span>01</span>프로필</a>
+      <a href="../notice/"><span>02</span>공지</a>
+      <a href="../schedule/"><span>03</span>일정</a>
+      <a href="../song/"><span>04</span>노래책</a>
+      <a href="../dress/"><span>05</span>옷장</a>
+      <a href="../work/"><span>06</span>업보</a>
+      <a href="../diary/"><span>07</span>일기</a>
+      <a href="../game/"><span>08</span>미니게임</a>
+    </nav>
+    <div class="header-side">
+      <a class="open-full" href="?pc=1" target="_blank" rel="noreferrer">PC 화면 ↗</a>
+      <a class="live-link" id="live-link" href="https://www.sooplive.com/station/k4187421" target="_blank" rel="noreferrer"><i aria-hidden="true"></i>ON AIR</a>
+      <button class="ask-btn" type="button" data-letter aria-label="슈니에게 한마디 보내기"><span>SIGNAL</span> ✦</button>
+      <button class="mode-toggle" type="button" aria-label="밤하늘로">☾</button>
+    </div>
+    <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="메뉴 열기"><span></span><span></span></button>
+  </header>
+
+  <main class="chapter">
+    <div class="chapter-head rv">
+      <div class="chapter-ghost" aria-hidden="true">Shuni</div>
+      <p class="kicker" data-t="pf-kicker">LOG 01 · OBSERVATION</p>
+      <h1><em data-t="pf-eyebrow">the little star</em><span data-hook="name">슈니</span></h1>
+      <p class="desc" data-hook="tagline">너희는 내 우주야</p>
+    </div>
+
+    <div class="pf-hero rv">
+      <img id="pf-hero-img" src="../assets/shuni-hanbok.webp" alt="슈니 프로필 사진" referrerpolicy="no-referrer">
+      <div class="wash" aria-hidden="true"></div>
+      <div class="cap"><b data-hook="quote">"너희는 내 우주야"</b></div>
+      <span class="frame" data-t="pf-frame">FRAME 001</span>
+    </div>
+
+    <div class="pf-grid">
+      <div class="pf-col">
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-cast">OBSERVER FILE · 기본 기록</p>
+          <div class="pf-ava">
+            <div class="ring" id="avatarWrap" role="button" tabindex="0" aria-label="프로필 사진">
+              <img id="avatar" class="avatar" alt="슈니 프로필 사진"
+                   src="https://profile.img.sooplive.co.kr/LOGO/k4/k4187421/k4187421.jpg"
+                   referrerpolicy="no-referrer" onerror="snAvatarFallback(this)">
+              <span class="ini" id="avatar-ini" hidden>S</span>
+            </div>
+            <b class="nm" data-hook="name2">슈니</b>
+            <span class="en" data-hook="name_en">SHUNI</span>
+          </div>
+          <div class="sn-rows">
+            <div class="sn-row"><b>BIRTHDAY</b><span><span data-hook="birthday-txt">10월 4일</span> · <b class="dd" id="pf-dday">D-?</b></span></div>
+            <div class="sn-row"><b>DEBUT</b><span><span data-hook="debut">2025.08.12</span> · <b class="dd" id="pf-dplus">D+?</b></span></div>
+            <div class="sn-row"><b>AGENCY</b><span data-hook="agency">개인세</span></div>
+            <div class="sn-row"><b>FANDOM</b><span data-hook="fan_name">슈몽</span></div>
+            <div class="sn-row"><b>ITEM</b><span data-hook="item">별자리 헤일로</span></div>
+            <div class="sn-row"><b>MOTIF</b><span data-hook="motif">별 · 달 · 밤하늘</span></div>
+            <div class="sn-row" id="row-mbti" hidden><b>MBTI</b><span data-hook="mbti"></span></div>
+            <div class="sn-row" id="row-age" hidden><b>AGE</b><span data-hook="age"></span></div>
+            <div class="sn-row"><b>SHOWTIME</b><span data-hook="schedule">매일 저녁 7시</span></div>
+          </div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-orbit">ORBIT &amp; VOID · 좋아 / 싫어</p>
+          <div class="ld-block">
+            <p class="ld-head"><i>✦</i><b data-t="pf-likes">Orbit</b></p>
+            <div class="sn-chips" id="likes"></div>
+          </div>
+          <div class="ld-block">
+            <p class="ld-head"><i style="color:var(--tx-dim)">✕</i><b data-t="pf-dislikes">Void</b></p>
+            <div class="sn-chips" id="dislikes"></div>
+          </div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-tmi">SMALL FACTS · TMI</p>
+          <ul class="tmi-list" id="tmi"></ul>
+        </section>
+      </div>
+
+      <div class="pf-col">
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-signal">SIGNAL · 소개</p>
+          <h2 data-t="pf-signal-h">밤하늘에서 보내는 신호</h2>
+          <p style="margin:0;color:var(--tx-soft);font-size:calc(14.5px * var(--fs-body));line-height:1.85" data-hook="intro">
+            별과 달, 밤하늘을 모티브로 하는 개인세 버추얼 슈니입니다.
+            매일 저녁 7시에 켜서 게임하고 소통하고 노래해요. 배틀그라운드를 자주 합니다.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:22px;margin-top:22px">
+            <div>
+              <span class="sn-label" data-t="pf-personality">Personality</span>
+              <div class="sn-chips" id="personality"></div>
+            </div>
+            <div>
+              <span class="sn-label" data-t="pf-catch">Catchphrase</span>
+              <div class="sn-chips" id="catchphrases"></div>
+            </div>
+            <div>
+              <span class="sn-label" data-t="pf-keywords">Keywords</span>
+              <div class="sn-chips" id="keywords"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-week">WEEKLY ORBIT · 이번 주 방송</p>
+          <div class="week-strip" id="week"></div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-stats">STAR CHART · 능력치</p>
+          <div class="stats-grid" id="stats"></div>
+        </section>
+
+        <section class="sn-card rv">
+          <p class="sn-kicker" data-t="pf-mile">TRAJECTORY · 목표</p>
+          <div class="mile" id="milestones"></div>
+        </section>
+      </div>
+    </div>
+
+    <section class="sn-card rv" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-song">FREQUENCY · 노래</p>
+      <div class="song-grid">
+        <div class="song-box">
+          <span class="k" data-t="pf-song-sig">SIGNATURE</span>
+          <span class="v" data-hook="song_signature">별의 하모니</span>
+        </div>
+        <div class="song-box">
+          <span class="k" data-t="pf-song-genre">자주 부르는 장르</span>
+          <span class="v sm" data-hook="song_genres">J-POP, K-POP</span>
+        </div>
+        <div class="song-box">
+          <span class="k" data-t="pf-song-avoid">잘 안 부르는 장르</span>
+          <span class="v sm" data-hook="song_avoid">팝송</span>
+        </div>
+      </div>
+      <div style="margin-top:18px">
+        <a class="sn-btn" id="song-clip" href="https://youtu.be/ey96X6dT-y8" target="_blank" rel="noreferrer" data-t="pf-song-btn">노래 클립 듣기 ↗</a>
+      </div>
+    </section>
+
+    <section class="sn-card rv" id="songs-card" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-vod">REPLAY · 다시보기</p>
+      <div id="ovod-grid"></div>
+    </section>
+
+    <section class="sn-card rv" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-filmo">OBSERVATION LOG · 진행 · 참여한 컨텐츠</p>
+      <div class="filmo" id="contents"></div>
+    </section>
+
+    <section class="sn-card rv" style="margin-top:22px">
+      <p class="sn-kicker" data-t="pf-links">CONSTELLATION MAP · 슈니를 만나는 곳</p>
+      <div class="link-grid" id="links"></div>
+      <div style="margin-top:18px">
+        <button class="sn-btn" type="button" data-letter data-t="pf-send">SEND A SIGNAL <span aria-hidden="true">✦</span></button>
+      </div>
+    </section>
+
+    <footer class="sn-footer rv">
+      <span>© <b id="copyright-year">2026</b> SHUNI OFFICIAL</span>
+      <b data-t="foot-mark">STAR ATLAS · LOG 01</b>
+      <span data-hook="fan_name">슈몽</span>
+    </footer>
+  </main>
+
+  <div id="snStars" aria-hidden="true"></div>
+  <div id="snMongs"></div>
+  <div id="snFx" aria-hidden="true"></div>
+  <div id="snMask"></div>
+  <div id="snLetter" role="dialog" aria-modal="true" aria-label="슈니에게 신호 보내기">
+    <p class="lk" data-t="modal-k">SEND A SIGNAL · 익명</p>
+    <h3 data-t="modal-h">슈니에게 한마디</h3>
+    <textarea id="snTa" placeholder="남긴 내용은 관리자만 확인합니다"></textarea>
+    <div class="acts">
+      <button id="snClose" type="button">CLOSE</button>
+      <button id="snSend" class="sn-btn-solid" type="button">보내기 ✦</button>
+    </div>
+    <p class="ok-msg" data-t="modal-ok">신호가 도착했습니다</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../supabase.js?v=20260902a"></script>
+  <script src="../js/cosmos.js?v=20260902a"></script>
+  <script>
+
+    /* palette, type scale and fixed screen text come from profile.data on
+       every page, so the admin theme and text tabs reach all of them */
+    async function snCommon() {
+      try {
+        var res = await db.from('profile').select('data').eq('id', 1);
+        var d = (res && res.data && res.data[0] && res.data[0].data) || {};
+        SN.applyTheme(d);
+        SN.applyTexts(d);
+        SN.watchTexts(d);
+        var fn = SN.txt(d.fan_name).trim();
+        if (fn) document.querySelectorAll('[data-hook="fan_name"]').forEach(function (el) { el.textContent = fn; });
+        var lk = d.links && d.links.soop;
+        var lv = document.getElementById('live-link');
+        if (lv && SN.txt(lk).trim()) lv.href = SN.txt(lk);
+        SN.mongs({
+          img: SN.txt(d.mong_img).trim(),
+          count: d.mong_count != null ? d.mong_count : 3,
+          lines: Array.isArray(d.mong_lines) ? d.mong_lines : null
+        });
+        return d;
+      } catch (e) { SN.mongs({}); return {}; }
+    }
+
+  /* Profile data model — keep identical to admin profileKeys and the input ids f-{key}.
+     Changing a key here means changing it in admin/index.html too, in both places.
+     week: index 0=월 ... 6=일 (same order as the admin day checkboxes) */
+  (function () {
+    var DEFAULTS = {
+      name: '슈니', name_en: 'SHUNI', soop_id: 'k4187421', avatar: '', 'profile-hero': '',
+      tagline: '너희는 내 우주야',
+      quote: '"너희는 내 우주야"',
+      intro: '별과 달, 밤하늘을 모티브로 하는 개인세 버추얼 슈니입니다.\n매일 저녁 7시에 켜서 게임하고 소통하고 노래해요. 배틀그라운드를 자주 합니다.',
+      birthday: '10-04', debut: '2025.08.12', agency: '개인세',
+      mbti: '', age: '', fan_name: '슈몽',
+      item: '별자리 헤일로', motif: '별 · 달 · 밤하늘 · 우주',
+      schedule: '매일 저녁 7시',
+      keywords: ['소통', '게임', '노래', '배틀그라운드', '별자리'],
+      personality: ['도도한', '틱틱대는', '에겐', '낯가림', '야랄'],
+      catchphrases: ['너희는 내 우주야'],
+      likes: ['새우', '애니'],
+      dislikes: ['벌레', '공포'],
+      tmi: ['모티브는 별과 달, 밤하늘', '아이템은 별자리 헤일로', '배틀그라운드를 자주 합니다', '노래는 정기적으로 부릅니다'],
+      stats: [
+        { label: '도도함', value: 90 }, { label: '텐션', value: 80 },
+        { label: '낯가림', value: 70 }, { label: '가창력', value: 78 },
+        { label: '게임 피지컬', value: 72 }, { label: '별 관측력', value: 95 }
+      ],
+      milestones: [],
+      contents: [],
+      week: ['19:00', '19:00', '19:00', '19:00', '19:00', '19:00', '19:00'],
+      song_signature: '별의 하모니',
+      song_genres: 'J-POP, K-POP',
+      song_avoid: '팝송',
+      song_clip: 'https://youtu.be/ey96X6dT-y8',
+      mong_img: '', mong_count: 3,
+      mong_lines: ['반짝', '슈니 보러 왔어?', '오늘도 별 하나', '히히', '나 여기 있다', '별 이어줘'],
+      links: {
+        soop: 'https://www.sooplive.com/station/k4187421',
+        youtube: 'https://www.youtube.com/@shuni_0812',
+        x: 'https://x.com/shuni_1',
+        cafe: ''
+      }
+    };
+    var esc = SN.esc, txt = SN.txt;
+    function arr(v, fb) {
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'string' && v.trim()) return v.split(/\n|,/).map(function (s) { return s.trim(); }).filter(Boolean);
+      return fb;
+    }
+    function setHook(k, v) {
+      document.querySelectorAll('[data-hook="' + k + '"]').forEach(function (el) {
+        if (v != null && txt(v).trim() !== '') el.innerHTML = esc(v).replace(/\n/g, '<br>');
+      });
+    }
+    function chips(id, list, cls) {
+      var el = document.getElementById(id); if (!el) return;
+      el.innerHTML = (list || []).map(function (x) {
+        return '<span class="sn-chip' + (cls ? ' ' + cls : '') + '">' + esc(x) + '</span>';
+      }).join('') || '<span style="color:var(--tx-dim);font-size:12px">—</span>';
+    }
+    function renderTmi(list) {
+      var el = document.getElementById('tmi'); if (!el) return;
+      el.innerHTML = (list || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('')
+        || '<li style="color:var(--tx-dim)">아직 등록된 내용이 없습니다</li>';
+    }
+    function renderStats(list) {
+      var el = document.getElementById('stats'); if (!el) return;
+      var rows = (list || []).map(function (s) {
+        var label = txt(s && s.label != null ? s.label : s);
+        var val = parseInt(s && s.value != null ? s.value : 0, 10) || 0;
+        val = Math.max(0, Math.min(100, val));
+        return '<div class="stat-item"><span class="sl">' + esc(label) + '</span><span class="sv">' + val + '</span>' +
+               '<span class="bar"><span class="fl" data-w="' + val + '"></span></span></div>';
+      }).join('');
+      el.innerHTML = rows || '<div class="sn-empty">아직 등록된 능력치가 없습니다</div>';
+      /* fill directly after a re-render — the reveal observer only fires once */
+      setTimeout(function () {
+        el.querySelectorAll('.fl[data-w]').forEach(function (f) { f.style.width = f.dataset.w + '%'; });
+      }, 120);
+    }
+    function renderMilestones(list) {
+      var el = document.getElementById('milestones'); if (!el) return;
+      var rows = (list || []).map(function (m) {
+        var state, text;
+        if (typeof m === 'string') { var p = m.split('|'); state = p[0] || ''; text = p[1] || ''; }
+        else { m = m || {}; state = txt(m.state); text = txt(m.text); }
+        var done = /완료|달성|done/i.test(state);
+        return '<div class="mile-row' + (done ? ' done' : '') + '"><span class="st">' + esc(state || '진행') + '</span>' +
+               '<span class="tx">' + esc(text) + '</span></div>';
+      }).join('');
+      el.innerHTML = rows || '<div class="sn-empty">아직 등록된 목표가 없습니다</div>';
+    }
+    function renderWeek(week) {
+      var el = document.getElementById('week'); if (!el) return;
+      var D = ['월', '화', '수', '목', '금', '토', '일'];
+      var jsDay = new Date().getDay();          /* JS: 0=일 -> our index: 0=월 */
+      var todayIdx = (jsDay + 6) % 7;
+      el.innerHTML = D.map(function (d, i) {
+        var t = txt(week && week[i] != null ? week[i] : '').trim();
+        var off = !t || t === '휴방' || t === '-';
+        return '<div class="week-cell' + (off ? ' off' : '') + (i === todayIdx ? ' today' : '') + '">' +
+               '<span class="d">' + d + '</span><span class="t">' + (off ? '휴방' : esc(t)) + '</span></div>';
+      }).join('');
+    }
+    function renderContents(list) {
+      var el = document.getElementById('contents'); if (!el) return;
+      var rows = (list || []).map(function (c) {
+        c = c || {};
+        var link = txt(c.url).trim();
+        return '<div class="filmo-row"><span class="dt">' + esc(c.date || '') + '</span>' +
+               '<span class="tt">' + esc(c.title || '') + '</span>' +
+               (link ? '<a class="go" href="' + esc(link) + '" target="_blank" rel="noreferrer">WATCH ↗</a>' : '<span></span>') +
+               '</div>';
+      }).join('');
+      el.innerHTML = rows || '<div class="sn-empty">아직 등록된 컨텐츠가 없습니다</div>';
+    }
+    function renderLinks(L) {
+      var el = document.getElementById('links'); if (!el) return;
+      L = L || {};
+      var defs = [['SOOP', '방송국', L.soop], ['YOUTUBE', '유튜브', L.youtube], ['X', 'SNS', L.x], ['CAFE', '팬카페', L.cafe]];
+      el.innerHTML = defs.filter(function (d) { return txt(d[2]).trim() !== ''; }).map(function (d) {
+        return '<a class="link-cell" href="' + esc(d[2]) + '" target="_blank" rel="noreferrer"><b>' + d[0] + ' ↗</b><span>' + d[1] + '</span></a>';
+      }).join('');
+      var lv = document.getElementById('live-link');
+      if (lv && txt(L.soop).trim()) lv.href = txt(L.soop);
+    }
+    function applyAll(d) {
+      d = d || {};
+      var g = function (k) {
+        var v = d[k];
+        return (v === undefined || v === null || txt(v).trim() === '') ? DEFAULTS[k] : v;
+      };
+      setHook('name', g('name')); setHook('name2', g('name'));
+      setHook('name_en', txt(g('name_en')).split('').join(' ').replace(/\s{2,}/g, '  '));
+      setHook('tagline', g('tagline')); setHook('quote', g('quote')); setHook('intro', g('intro'));
+      setHook('debut', g('debut')); setHook('agency', g('agency'));
+      setHook('fan_name', g('fan_name')); setHook('fan_name2', g('fan_name'));
+      setHook('item', g('item')); setHook('motif', g('motif'));
+      setHook('schedule', g('schedule'));
+      setHook('song_signature', g('song_signature'));
+      setHook('song_genres', g('song_genres'));
+      setHook('song_avoid', g('song_avoid'));
+      var clip = txt(g('song_clip')).trim(), ce = document.getElementById('song-clip');
+      if (ce) { if (clip) { ce.href = clip; ce.style.display = ''; } else ce.style.display = 'none'; }
+
+      var bd = txt(g('birthday')), bp = bd.split('-');
+      if (bp.length === 2) setHook('birthday-txt', (+bp[0]) + '월 ' + (+bp[1]) + '일');
+      var n = SN.dday(bd), dd = document.getElementById('pf-dday');
+      if (dd) dd.textContent = n == null ? '' : (n === 0 ? 'TODAY ✦' : 'D-' + n);
+      var dp = SN.dplus(txt(g('debut'))), de = document.getElementById('pf-dplus');
+      if (de) de.textContent = dp == null ? '' : 'D+' + dp;
+
+      ['mbti', 'age'].forEach(function (k) {
+        var row = document.getElementById('row-' + k), v = txt(d[k]).trim();
+        if (row && v) { row.hidden = false; setHook(k, v); }
+      });
+
+      var ph = txt(d['profile-hero']).trim();
+      if (ph) { var pe = document.getElementById('pf-hero-img'); if (pe) pe.src = ph; }
+      var av = document.getElementById('avatar');
+      var direct = txt(d.avatar).trim();
+      if (av) av.src = direct || SN.soopAvatar(txt(g('soop_id'))) || av.src;
+
+      chips('likes', arr(d.likes, DEFAULTS.likes));
+      chips('dislikes', arr(d.dislikes, DEFAULTS.dislikes), 'no');
+      chips('personality', arr(d.personality, DEFAULTS.personality));
+      chips('catchphrases', arr(d.catchphrases, DEFAULTS.catchphrases).map(function (c) { return '"' + c + '"'; }));
+      chips('keywords', arr(d.keywords, DEFAULTS.keywords).map(function (k) { return '#' + String(k).replace(/^#/, ''); }));
+      renderTmi(arr(d.tmi, DEFAULTS.tmi));
+      renderStats(Array.isArray(d.stats) && d.stats.length ? d.stats : DEFAULTS.stats);
+      renderMilestones(Array.isArray(d.milestones) ? d.milestones : arr(d.milestones, DEFAULTS.milestones));
+      renderWeek(Array.isArray(d.week) && d.week.length === 7 ? d.week : DEFAULTS.week);
+      renderContents(Array.isArray(d.contents) ? d.contents : DEFAULTS.contents);
+      renderLinks(d.links && typeof d.links === 'object' ? d.links : DEFAULTS.links);
+
+      SN.applyTheme(d);
+      SN.applyTexts(d); SN.watchTexts(d);
+      SN.mongs({
+        img: txt(d.mong_img).trim(),
+        count: d.mong_count != null ? d.mong_count : DEFAULTS.mong_count,
+        lines: arr(d.mong_lines, DEFAULTS.mong_lines)
+      });
+    }
+
+    /* Replay grid — original_songs(vod_id, title) filled from admin */
+    function renderVod(rows) {
+      var el = document.getElementById('ovod-grid'); if (!el) return;
+      if (!rows || !rows.length) {
+        el.innerHTML = '<div class="vod-ph">등록된 다시보기가 없습니다</div>' +
+                       '<div class="vod-ph">등록된 다시보기가 없습니다</div>' +
+                       '<div class="vod-ph">등록된 다시보기가 없습니다</div>';
+        return;
+      }
+      el.innerHTML = rows.map(function (r) {
+        var id = txt(r.vod_id).trim();
+        if (!id) return '';
+        return '<div><div class="vod-box"><iframe src="https://vod.sooplive.co.kr/player/' + esc(id) +
+               '/embed" allowfullscreen loading="lazy" title="' + esc(r.title || '다시보기') + '"></iframe></div>' +
+               '<p class="vod-cap">' + esc(r.title || '') + '</p></div>';
+      }).join('');
+    }
+
+    async function load() {
+      try {
+        var res = await db.from('profile').select('data').eq('id', 1);
+        var d = res && res.data && res.data[0] && res.data[0].data;
+        applyAll(d || {});
+      } catch (e) { applyAll({}); }
+      try {
+        var songs = await fetchAll('original_songs', { order: 'sort_order', asc: true });
+        renderVod(songs);
+      } catch (e) { renderVod([]); }
+      finally { SN.dataReady(); SN.reveal(); }
+    }
+
+    applyAll({});        /* render defaults immediately, then let the DB overwrite */
+    renderVod([]);
+    load();
+
+    var wrap = document.getElementById('avatarWrap');
+    if (wrap) {
+      var tap = function () {
+        SN.bump(wrap);
+        var r = wrap.getBoundingClientRect();
+        SN.pop(r.left + r.width / 2, r.top + r.height / 2, 6);
+      };
+      wrap.addEventListener('click', tap);
+      wrap.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); } });
+    }
+  })();
+    </script>
+</body>
+</html>

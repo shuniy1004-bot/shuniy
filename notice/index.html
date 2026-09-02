@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <!-- Fixed width so phones render the desktop layout. No scale limits: setting
+       minimum-scale locks zoom and the in-app browser snaps back. -->
+  <meta name="viewport" content="width=1180, user-scalable=yes">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="SHUNI OFFICIAL — 공지">
+  <meta property="og:title" content="공지 | SHUNI OFFICIAL">
+  <meta property="og:description" content="SHUNI OFFICIAL — 공지">
+  <meta property="og:type" content="website">
+  <title>공지 | SHUNI OFFICIAL</title>
+  <link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/k4/k4187421/k4187421.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/cosmos.css?v=20260902a">
+  <script src="../pcview.js?v=20260902a"></script>
+  <style>
+    /* Same gate on the page itself, so a cached stylesheet cannot let the
+       hard-coded defaults flash before the DB values arrive. */
+    body:not(.dataready) .chapter{opacity:0}
+    [hidden]{display:none !important}
+
+    .nt-item{
+      border:1px solid var(--line);background:var(--glass);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      cursor:pointer;transition:background 160ms ease;
+    }
+    body:not(.dark) .nt-item{box-shadow:0 10px 34px rgba(31,82,133,.06)}
+    .nt-item + .nt-item{margin-top:12px}
+    .nt-item:hover{background:var(--glass-deep)}
+    .nt-head{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:baseline;padding:20px 24px}
+    .nt-pin{padding:3px 9px;border:1px solid var(--point);background:var(--point);color:#fff;font-size:calc(12px * var(--fs-label));font-weight:900;letter-spacing:.1em}
+    .nt-title{font-size:calc(17px * var(--fs-body));font-weight:700;line-height:1.5;min-width:0}
+    .nt-date{font-family:var(--font-serif);font-style:italic;font-size:calc(14px * var(--fs-label));color:var(--tx-dim);white-space:nowrap}
+    .nt-caret{color:var(--accent-txt);font-size:12px;transition:transform 200ms ease}
+    .nt-item.open .nt-caret{transform:rotate(90deg)}
+    .nt-body{display:none;padding:0 24px 24px;color:var(--tx-soft);font-size:calc(15px * var(--fs-body));line-height:1.85;white-space:pre-wrap}
+    .nt-item.open .nt-body{display:block}
+    .nt-item.pinned{border-color:var(--point)}
+    @media (max-width:959px){
+      .nt-head{grid-template-columns:1fr auto;gap:8px;padding:16px 18px}
+      .nt-pin{grid-column:1/-1;justify-self:start}
+      .nt-caret{display:none}
+      .nt-body{padding:0 18px 18px}
+    }
+  </style>
+</head>
+<body class="sn-sub">
+<script>
+  try { if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark'); } catch (e) {}
+  try { if (window.self !== window.top) document.body.classList.add('embed'); }
+  catch (e) { document.body.classList.add('embed'); }
+  /* Defined before the images parse: a hot-linked avatar can fail while the page
+     is still parsing, and the onerror attribute fires right then. */
+  function snAvatarFallback(img) {
+    img.style.display = 'none';
+    var ini = document.getElementById(img.dataset.ini || 'avatar-ini');
+    if (ini) ini.hidden = false;
+  }
+</script>
+
+  <header class="site-header">
+    <a href="../" class="monogram" aria-label="SHUNI 홈">Shuni</a>
+    <nav id="main-navigation" class="main-navigation" aria-label="메인 메뉴">
+      <a href="../profile/"><span>01</span>프로필</a>
+      <a href="../notice/" class="on"><span>02</span>공지</a>
+      <a href="../schedule/"><span>03</span>일정</a>
+      <a href="../song/"><span>04</span>노래책</a>
+      <a href="../dress/"><span>05</span>옷장</a>
+      <a href="../work/"><span>06</span>업보</a>
+      <a href="../diary/"><span>07</span>일기</a>
+      <a href="../game/"><span>08</span>미니게임</a>
+    </nav>
+    <div class="header-side">
+      <a class="open-full" href="?pc=1" target="_blank" rel="noreferrer">PC 화면 ↗</a>
+      <a class="live-link" id="live-link" href="https://www.sooplive.com/station/k4187421" target="_blank" rel="noreferrer"><i aria-hidden="true"></i>ON AIR</a>
+      <button class="ask-btn" type="button" data-letter aria-label="슈니에게 한마디 보내기"><span>SIGNAL</span> ✦</button>
+      <button class="mode-toggle" type="button" aria-label="밤하늘로">☾</button>
+    </div>
+    <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="메뉴 열기"><span></span><span></span></button>
+  </header>
+
+  <main class="chapter">
+    <div class="chapter-head rv">
+      <div class="chapter-ghost" aria-hidden="true">Notice</div>
+      <p class="kicker" data-t="nt-kicker">LOG 02 · BROADCAST</p>
+      <h1><em data-t="nt-eyebrow">from the observatory</em>공지</h1>
+      <p class="desc" data-t="nt-desc">슈니가 전하는 소식입니다.</p>
+    </div>
+
+    <div class="sn-toolbar rv">
+      <span class="sn-count" id="count">총 0개의 공지</span>
+    </div>
+
+    <div id="notice-list" class="rv"></div>
+
+    <footer class="sn-footer rv">
+      <span>© <b id="copyright-year">2026</b> SHUNI OFFICIAL</span>
+      <b data-t="foot-mark">STAR ATLAS · LOG 02</b>
+      <span data-hook="fan_name">슈몽</span>
+    </footer>
+  </main>
+
+  <div id="snStars" aria-hidden="true"></div>
+  <div id="snMongs"></div>
+  <div id="snFx" aria-hidden="true"></div>
+  <div id="snMask"></div>
+  <div id="snLetter" role="dialog" aria-modal="true" aria-label="슈니에게 신호 보내기">
+    <p class="lk" data-t="modal-k">SEND A SIGNAL · 익명</p>
+    <h3 data-t="modal-h">슈니에게 한마디</h3>
+    <textarea id="snTa" placeholder="남긴 내용은 관리자만 확인합니다"></textarea>
+    <div class="acts">
+      <button id="snClose" type="button">CLOSE</button>
+      <button id="snSend" class="sn-btn-solid" type="button">보내기 ✦</button>
+    </div>
+    <p class="ok-msg" data-t="modal-ok">신호가 도착했습니다</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../supabase.js?v=20260902a"></script>
+  <script src="../js/cosmos.js?v=20260902a"></script>
+  <script>
+
+    /* palette, type scale and fixed screen text come from profile.data on
+       every page, so the admin theme and text tabs reach all of them */
+    async function snCommon() {
+      try {
+        var res = await db.from('profile').select('data').eq('id', 1);
+        var d = (res && res.data && res.data[0] && res.data[0].data) || {};
+        SN.applyTheme(d);
+        SN.applyTexts(d);
+        SN.watchTexts(d);
+        var fn = SN.txt(d.fan_name).trim();
+        if (fn) document.querySelectorAll('[data-hook="fan_name"]').forEach(function (el) { el.textContent = fn; });
+        var lk = d.links && d.links.soop;
+        var lv = document.getElementById('live-link');
+        if (lv && SN.txt(lk).trim()) lv.href = SN.txt(lk);
+        SN.mongs({
+          img: SN.txt(d.mong_img).trim(),
+          count: d.mong_count != null ? d.mong_count : 3,
+          lines: Array.isArray(d.mong_lines) ? d.mong_lines : null
+        });
+        return d;
+      } catch (e) { SN.mongs({}); return {}; }
+    }
+
+    (function () {
+      function render(rows) {
+        var all = rows.filter(function (n) { return n.pinned; })
+                 .concat(rows.filter(function (n) { return !n.pinned; }));
+        var el = document.getElementById('notice-list');
+        document.getElementById('count').textContent = '총 ' + all.length + '개의 공지';
+        if (!all.length) { el.innerHTML = '<div class="sn-card sn-empty">등록된 공지가 없습니다</div>'; return; }
+        el.innerHTML = all.map(function (n) {
+          var d = new Date(n.created_at);
+          var ds = isNaN(d) ? '' : d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+          var imgs = (n.images && n.images.length) ? n.images : (n.image_url ? [n.image_url] : []);
+          return '<article class="nt-item' + (n.pinned ? ' pinned' : '') + '">' +
+            '<div class="nt-head">' +
+              (n.pinned ? '<span class="nt-pin">고정</span>' : '<span></span>') +
+              '<span class="nt-title">' + esc(n.title) + '</span>' +
+              '<span class="nt-date">' + ds + '</span>' +
+              '<span class="nt-caret" aria-hidden="true">▸</span>' +
+            '</div>' +
+            '<div class="nt-body">' +
+              imgs.map(function (u) {
+                return '<img src="' + esc(u) + '" class="post-img" referrerpolicy="no-referrer" loading="lazy" alt="">';
+              }).join('') +
+              esc(n.content) +
+            '</div></article>';
+        }).join('');
+        el.querySelectorAll('.nt-item').forEach(function (it) {
+          it.addEventListener('click', function () {
+            it.classList.toggle('open');
+            enableIframeAutoHeight();
+          });
+        });
+      }
+      async function init() {
+        await snCommon();
+        try { render(await fetchAll('notice', { order: 'created_at', asc: false })); }
+        catch (e) { render([]); }
+        finally { SN.dataReady(); SN.reveal(); enableIframeAutoHeight(); }
+      }
+      render([]);
+      init();
+    })();
+  </script>
+</body>
+</html>
