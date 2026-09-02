@@ -34,8 +34,22 @@ def nav_html(active, root):
     return "\n".join(out)
 
 
-def page(*, slug, title, desc, root, body, css="", script="", extra_head="", footer_mark):
-    """root is '' for the site root page and '../' for a folder page."""
+def page(*, slug, title, desc, root, body, css="", script="", extra_head="", footer_mark,
+         cover=False):
+    """root is '' for the site root page and '../' for a folder page.
+    cover=True swaps the scrolling chapter for the one screen cover layout."""
+    main_cls = "sn-cover" if cover else "chapter"
+    body_cls = "sn-sub sn-home" if cover else "sn-sub"
+    foot = (f'    <footer class="cover-foot rv">\n'
+            f'      <span>\u00a9 <b id="copyright-year">2026</b> SHUNI OFFICIAL</span>\n'
+            f'      <b id="dday-strip">BIRTHDAY</b>\n'
+            f'      <span data-t="foot-mark">{footer_mark}</span>\n'
+            f'    </footer>') if cover else (
+            f'    <footer class="sn-footer rv">\n'
+            f'      <span>\u00a9 <b id="copyright-year">2026</b> SHUNI OFFICIAL</span>\n'
+            f'      <b data-t="foot-mark">{footer_mark}</b>\n'
+            f'      <span data-hook="fan_name">\uc288\ubabd</span>\n'
+            f'    </footer>')
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -58,11 +72,12 @@ def page(*, slug, title, desc, root, body, css="", script="", extra_head="", foo
 {extra_head}  <style>
     /* Same gate on the page itself, so a cached stylesheet cannot let the
        hard-coded defaults flash before the DB values arrive. */
-    body:not(.dataready) .chapter{{opacity:0}}
+    body:not(.dataready) .chapter,
+    body:not(.dataready) .sn-cover{{opacity:0}}
     [hidden]{{display:none !important}}
 {css}  </style>
 </head>
-<body class="sn-sub">
+<body class="{body_cls}">
 <script>
   try {{ if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark'); }} catch (e) {{}}
   try {{ if (window.self !== window.top) document.body.classList.add('embed'); }}
@@ -90,13 +105,9 @@ def page(*, slug, title, desc, root, body, css="", script="", extra_head="", foo
     <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="메뉴 열기"><span></span><span></span></button>
   </header>
 
-  <main class="chapter">
+  <main class="{main_cls}">
 {body}
-    <footer class="sn-footer rv">
-      <span>© <b id="copyright-year">2026</b> SHUNI OFFICIAL</span>
-      <b data-t="foot-mark">{footer_mark}</b>
-      <span data-hook="fan_name">슈몽</span>
-    </footer>
+{foot}
   </main>
 
   <div id="snStars" aria-hidden="true"></div>

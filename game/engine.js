@@ -1,6 +1,6 @@
 /* Minigame core. Loaded by game/index.html and required by the physics test,
    so the shipped code is the code that was measured.
-   Ladder follows the moyo original: rungs are never drawn, the runner walks and
+   Ladder follows the reference build: rungs are never drawn, the runner walks and
    strokes its own path, results stay visible from the start. */
 (function (root) {
   'use strict';
@@ -16,11 +16,11 @@
     return a;
   }
 
-  /* ---------------- ladder (moyo original) ----------------
+  /* ---------------- ladder ----------------
      rung[g][r] = true means a bar joins column g and g+1 on row r.
      Neighbouring gaps never carry a bar on the same row, and every gap gets at
      least one bar so no column is stuck going straight down. */
-  /* rows: the moyo original uses 9~11, which is tuned for about four people.
+  /* rows: the reference build uses 9~11, which is tuned for about four people.
      Measured with more players that leaves the walker near its own column
      (8 people: 0.4% ~ 30.2%). The rung rules are untouched; only the ladder is
      made longer, and since the bars are never drawn the screen looks the same.

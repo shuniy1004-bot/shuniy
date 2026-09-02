@@ -289,7 +289,7 @@ def build():
   <section class="tab-panel active" id="tab-main">
     <div class="card">
       <p class="card-title">🖼 메인 사진</p>
-      <p class="card-where">나오는 곳 — 메인 히어로 큰 사진. 비우면 기본 파일이 그대로 쓰입니다</p>
+      <p class="card-where">나오는 곳 — 메인 커버를 덮는 배경 사진. 비우면 기본 파일이 그대로 쓰입니다</p>
       <div class="img-field">
         <img class="thumb" id="t-main_art" alt="" referrerpolicy="no-referrer">
         <div class="grow form-field" style="margin:0">
@@ -297,27 +297,6 @@ def build():
           <input class="input" id="f-main_art" placeholder="https://…">
           <p class="hint">가로형 사진 권장 (16:9 안팎). 숲 게시판 이미지 주소를 붙여 넣습니다</p>
         </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <p class="card-title">📅 방송 요일</p>
-      <p class="card-where">나오는 곳 — 메인 주간표 + 프로필 요일칸 두 곳에 함께 반영</p>
-      <div class="form-field">
-        <label class="input-label" for="f-week">요일별 시간 (7줄, 첫 줄이 월요일)</label>
-        <textarea class="input" id="f-week" rows="7" spellcheck="false"></textarea>
-        <p class="hint">비우거나 `휴방` 이라고 적으면 휴방으로 표시됩니다</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <p class="card-title">🔗 관련 링크</p>
-      <p class="card-where">나오는 곳 — 메인 링크 카드 + 프로필 링크 카드 + 상단 ON AIR 버튼</p>
-      <div class="grid2">
-        <div class="form-field"><label class="input-label" for="f-link_soop">SOOP 방송국</label><input class="input" id="f-link_soop" placeholder="https://www.sooplive.com/station/…"></div>
-        <div class="form-field"><label class="input-label" for="f-link_youtube">유튜브</label><input class="input" id="f-link_youtube" placeholder="https://www.youtube.com/@…"></div>
-        <div class="form-field"><label class="input-label" for="f-link_x">X</label><input class="input" id="f-link_x" placeholder="https://x.com/…"></div>
-        <div class="form-field"><label class="input-label" for="f-link_cafe">팬카페</label><input class="input" id="f-link_cafe" placeholder="비우면 카드가 숨겨집니다"></div>
       </div>
     </div>
 
@@ -343,7 +322,7 @@ def build():
   <section class="tab-panel" id="tab-profile">
     <div class="card">
       <p class="card-title">🙂 프사 · 이름</p>
-      <p class="card-where">나오는 곳 — 메인 파일 카드 + 프로필 상단. 사진 주소를 비우면 SOOP 아이디로 자동으로 가져옵니다</p>
+      <p class="card-where">나오는 곳 — 메인 커버 오른쪽 카드의 동그라미 + 프로필 상단. 사진 주소를 비우면 SOOP 아이디로 자동으로 가져옵니다</p>
       <div class="img-field">
         <img class="thumb" id="t-avatar" alt="" referrerpolicy="no-referrer" style="border-radius:50%">
         <div class="grow">
@@ -371,7 +350,7 @@ def build():
 
     <div class="card">
       <p class="card-title">📋 프로필 정보</p>
-      <p class="card-where">나오는 곳 — 메인 파일 카드 + 프로필 기본 기록 카드</p>
+      <p class="card-where">나오는 곳 — 프로필 기본 기록 카드. 생일은 메인 커버의 날짜와 D-day 에도 쓰입니다</p>
       <div class="grid3">
         <div class="form-field"><label class="input-label" for="f-birthday">생일 (MM-DD)</label><input class="input" id="f-birthday" placeholder="10-04"><p class="hint">D-Day 자동 계산</p></div>
         <div class="form-field"><label class="input-label" for="f-debut">데뷔일 (YYYY.MM.DD)</label><input class="input" id="f-debut" placeholder="2025.08.12"><p class="hint">D+ 자동 계산</p></div>
@@ -387,7 +366,7 @@ def build():
 
     <div class="card">
       <p class="card-title">💬 한마디 · 소개</p>
-      <p class="card-where">나오는 곳 — 한마디=메인 히어로 + 프로필 상단 / 인용문=프로필 사진 위 / 소개=메인 SIGNAL + 프로필 SIGNAL</p>
+      <p class="card-where">나오는 곳 — 한마디=메인 커버 두 줄 + 프로필 상단 / 인용문=메인 커버 오른쪽 카드 + 프로필 사진 위 / 소개=프로필 SIGNAL 카드</p>
       <div class="form-field"><label class="input-label" for="f-tagline">한마디</label><input class="input" id="f-tagline"></div>
       <div class="form-field"><label class="input-label" for="f-quote">사진 위 인용문</label><input class="input" id="f-quote"></div>
       <div class="form-field"><label class="input-label" for="f-intro">소개</label><textarea class="input" id="f-intro" rows="4"></textarea><p class="hint">줄바꿈 그대로 반영. 2~3줄 권장</p></div>
@@ -395,7 +374,7 @@ def build():
 
     <div class="card">
       <p class="card-title">🏷 태그 · 좋아 / 싫어</p>
-      <p class="card-where">나오는 곳 — 키워드=메인 히어로 + 프로필 / 나머지는 프로필. 비우면 그 칸이 — 로 표시됩니다</p>
+      <p class="card-where">나오는 곳 — 프로필 페이지. 비우면 그 칸이 — 로 표시됩니다</p>
       <div class="grid2">
         <div class="form-field"><label class="input-label" for="f-keywords">키워드</label><textarea class="input" id="f-keywords" rows="4"></textarea><p class="hint">한 줄에 하나. # 는 자동으로 붙습니다</p></div>
         <div class="form-field"><label class="input-label" for="f-personality">성격</label><textarea class="input" id="f-personality" rows="4"></textarea><p class="hint">한 줄에 하나</p></div>
@@ -440,6 +419,27 @@ def build():
       </div>
     </div>
 
+    <div class="card">
+      <p class="card-title">📅 방송 요일</p>
+      <p class="card-where">나오는 곳 — 프로필 요일칸</p>
+      <div class="form-field">
+        <label class="input-label" for="f-week">요일별 시간 (7줄, 첫 줄이 월요일)</label>
+        <textarea class="input" id="f-week" rows="7" spellcheck="false"></textarea>
+        <p class="hint">비우거나 `휴방` 이라고 적으면 휴방으로 표시됩니다</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-title">🔗 관련 링크</p>
+      <p class="card-where">나오는 곳 — 프로필 링크 카드 + 전 페이지 상단 ON AIR + 메인 MEET SHUNI 버튼</p>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="f-link_soop">SOOP 방송국</label><input class="input" id="f-link_soop" placeholder="https://www.sooplive.com/station/…"></div>
+        <div class="form-field"><label class="input-label" for="f-link_youtube">유튜브</label><input class="input" id="f-link_youtube" placeholder="https://www.youtube.com/@…"></div>
+        <div class="form-field"><label class="input-label" for="f-link_x">X</label><input class="input" id="f-link_x" placeholder="https://x.com/…"></div>
+        <div class="form-field"><label class="input-label" for="f-link_cafe">팬카페</label><input class="input" id="f-link_cafe" placeholder="비우면 카드가 숨겨집니다"></div>
+      </div>
+    </div>
+
     <div class="btn-row"><button class="btn btn-primary" type="button" data-save>저장</button></div>
   </section>
 
@@ -447,7 +447,7 @@ def build():
   <section class="tab-panel" id="tab-notice">
     <div class="card">
       <p class="card-title">📢 공지 등록</p>
-      <p class="card-where">나오는 곳 — 공지 페이지 + 메인 최근 공지 4개</p>
+      <p class="card-where">나오는 곳 — 공지 페이지</p>
       <div class="form-field"><label class="input-label" for="nt-title">제목</label><input class="input" id="nt-title"></div>
       <div class="form-field"><label class="input-label" for="nt-content">내용</label><textarea class="input" id="nt-content" rows="5"></textarea><p class="hint">줄바꿈 그대로 반영</p></div>
       <div class="form-field"><label class="input-label" for="nt-images">이미지 주소 (한 줄에 하나)</label><textarea class="input" id="nt-images" rows="3" spellcheck="false"></textarea></div>

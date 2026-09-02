@@ -16,7 +16,30 @@ TARGETS = [
     ('admin/index.html',    p_admin),
     ('overlay/index.html',  p_overlay),
 ]
+PAGE_TARGETS = [t for t in TARGETS if t[0] not in ('admin/index.html', 'overlay/index.html')]
+
+
+def write(rel, mod):
+    path = os.path.join(ROOT, rel)
+    os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
+    html = mod.build()
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f'{rel:22} {len(html):>7,} bytes')
+
+
+for rel, mod in PAGE_TARGETS:
+    write(rel, mod)
+
+# the admin text tab is generated from the data-t keys the pages actually carry
+import harvest_texts
+print('texts.json', len(harvest_texts.harvest()), 'keys')
+import importlib
+importlib.reload(p_admin)
+
 for rel, mod in TARGETS:
+    if rel not in ('admin/index.html', 'overlay/index.html'):
+        continue
     path = os.path.join(ROOT, rel)
     os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
     html = mod.build()

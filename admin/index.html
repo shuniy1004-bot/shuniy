@@ -198,7 +198,7 @@
   <section class="tab-panel active" id="tab-main">
     <div class="card">
       <p class="card-title">🖼 메인 사진</p>
-      <p class="card-where">나오는 곳 — 메인 히어로 큰 사진. 비우면 기본 파일이 그대로 쓰입니다</p>
+      <p class="card-where">나오는 곳 — 메인 커버를 덮는 배경 사진. 비우면 기본 파일이 그대로 쓰입니다</p>
       <div class="img-field">
         <img class="thumb" id="t-main_art" alt="" referrerpolicy="no-referrer">
         <div class="grow form-field" style="margin:0">
@@ -206,27 +206,6 @@
           <input class="input" id="f-main_art" placeholder="https://…">
           <p class="hint">가로형 사진 권장 (16:9 안팎). 숲 게시판 이미지 주소를 붙여 넣습니다</p>
         </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <p class="card-title">📅 방송 요일</p>
-      <p class="card-where">나오는 곳 — 메인 주간표 + 프로필 요일칸 두 곳에 함께 반영</p>
-      <div class="form-field">
-        <label class="input-label" for="f-week">요일별 시간 (7줄, 첫 줄이 월요일)</label>
-        <textarea class="input" id="f-week" rows="7" spellcheck="false"></textarea>
-        <p class="hint">비우거나 `휴방` 이라고 적으면 휴방으로 표시됩니다</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <p class="card-title">🔗 관련 링크</p>
-      <p class="card-where">나오는 곳 — 메인 링크 카드 + 프로필 링크 카드 + 상단 ON AIR 버튼</p>
-      <div class="grid2">
-        <div class="form-field"><label class="input-label" for="f-link_soop">SOOP 방송국</label><input class="input" id="f-link_soop" placeholder="https://www.sooplive.com/station/…"></div>
-        <div class="form-field"><label class="input-label" for="f-link_youtube">유튜브</label><input class="input" id="f-link_youtube" placeholder="https://www.youtube.com/@…"></div>
-        <div class="form-field"><label class="input-label" for="f-link_x">X</label><input class="input" id="f-link_x" placeholder="https://x.com/…"></div>
-        <div class="form-field"><label class="input-label" for="f-link_cafe">팬카페</label><input class="input" id="f-link_cafe" placeholder="비우면 카드가 숨겨집니다"></div>
       </div>
     </div>
 
@@ -252,7 +231,7 @@
   <section class="tab-panel" id="tab-profile">
     <div class="card">
       <p class="card-title">🙂 프사 · 이름</p>
-      <p class="card-where">나오는 곳 — 메인 파일 카드 + 프로필 상단. 사진 주소를 비우면 SOOP 아이디로 자동으로 가져옵니다</p>
+      <p class="card-where">나오는 곳 — 메인 커버 오른쪽 카드의 동그라미 + 프로필 상단. 사진 주소를 비우면 SOOP 아이디로 자동으로 가져옵니다</p>
       <div class="img-field">
         <img class="thumb" id="t-avatar" alt="" referrerpolicy="no-referrer" style="border-radius:50%">
         <div class="grow">
@@ -280,7 +259,7 @@
 
     <div class="card">
       <p class="card-title">📋 프로필 정보</p>
-      <p class="card-where">나오는 곳 — 메인 파일 카드 + 프로필 기본 기록 카드</p>
+      <p class="card-where">나오는 곳 — 프로필 기본 기록 카드. 생일은 메인 커버의 날짜와 D-day 에도 쓰입니다</p>
       <div class="grid3">
         <div class="form-field"><label class="input-label" for="f-birthday">생일 (MM-DD)</label><input class="input" id="f-birthday" placeholder="10-04"><p class="hint">D-Day 자동 계산</p></div>
         <div class="form-field"><label class="input-label" for="f-debut">데뷔일 (YYYY.MM.DD)</label><input class="input" id="f-debut" placeholder="2025.08.12"><p class="hint">D+ 자동 계산</p></div>
@@ -296,7 +275,7 @@
 
     <div class="card">
       <p class="card-title">💬 한마디 · 소개</p>
-      <p class="card-where">나오는 곳 — 한마디=메인 히어로 + 프로필 상단 / 인용문=프로필 사진 위 / 소개=메인 SIGNAL + 프로필 SIGNAL</p>
+      <p class="card-where">나오는 곳 — 한마디=메인 커버 두 줄 + 프로필 상단 / 인용문=메인 커버 오른쪽 카드 + 프로필 사진 위 / 소개=프로필 SIGNAL 카드</p>
       <div class="form-field"><label class="input-label" for="f-tagline">한마디</label><input class="input" id="f-tagline"></div>
       <div class="form-field"><label class="input-label" for="f-quote">사진 위 인용문</label><input class="input" id="f-quote"></div>
       <div class="form-field"><label class="input-label" for="f-intro">소개</label><textarea class="input" id="f-intro" rows="4"></textarea><p class="hint">줄바꿈 그대로 반영. 2~3줄 권장</p></div>
@@ -304,7 +283,7 @@
 
     <div class="card">
       <p class="card-title">🏷 태그 · 좋아 / 싫어</p>
-      <p class="card-where">나오는 곳 — 키워드=메인 히어로 + 프로필 / 나머지는 프로필. 비우면 그 칸이 — 로 표시됩니다</p>
+      <p class="card-where">나오는 곳 — 프로필 페이지. 비우면 그 칸이 — 로 표시됩니다</p>
       <div class="grid2">
         <div class="form-field"><label class="input-label" for="f-keywords">키워드</label><textarea class="input" id="f-keywords" rows="4"></textarea><p class="hint">한 줄에 하나. # 는 자동으로 붙습니다</p></div>
         <div class="form-field"><label class="input-label" for="f-personality">성격</label><textarea class="input" id="f-personality" rows="4"></textarea><p class="hint">한 줄에 하나</p></div>
@@ -349,6 +328,27 @@
       </div>
     </div>
 
+    <div class="card">
+      <p class="card-title">📅 방송 요일</p>
+      <p class="card-where">나오는 곳 — 프로필 요일칸</p>
+      <div class="form-field">
+        <label class="input-label" for="f-week">요일별 시간 (7줄, 첫 줄이 월요일)</label>
+        <textarea class="input" id="f-week" rows="7" spellcheck="false"></textarea>
+        <p class="hint">비우거나 `휴방` 이라고 적으면 휴방으로 표시됩니다</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-title">🔗 관련 링크</p>
+      <p class="card-where">나오는 곳 — 프로필 링크 카드 + 전 페이지 상단 ON AIR + 메인 MEET SHUNI 버튼</p>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="f-link_soop">SOOP 방송국</label><input class="input" id="f-link_soop" placeholder="https://www.sooplive.com/station/…"></div>
+        <div class="form-field"><label class="input-label" for="f-link_youtube">유튜브</label><input class="input" id="f-link_youtube" placeholder="https://www.youtube.com/@…"></div>
+        <div class="form-field"><label class="input-label" for="f-link_x">X</label><input class="input" id="f-link_x" placeholder="https://x.com/…"></div>
+        <div class="form-field"><label class="input-label" for="f-link_cafe">팬카페</label><input class="input" id="f-link_cafe" placeholder="비우면 카드가 숨겨집니다"></div>
+      </div>
+    </div>
+
     <div class="btn-row"><button class="btn btn-primary" type="button" data-save>저장</button></div>
   </section>
 
@@ -356,7 +356,7 @@
   <section class="tab-panel" id="tab-notice">
     <div class="card">
       <p class="card-title">📢 공지 등록</p>
-      <p class="card-where">나오는 곳 — 공지 페이지 + 메인 최근 공지 4개</p>
+      <p class="card-where">나오는 곳 — 공지 페이지</p>
       <div class="form-field"><label class="input-label" for="nt-title">제목</label><input class="input" id="nt-title"></div>
       <div class="form-field"><label class="input-label" for="nt-content">내용</label><textarea class="input" id="nt-content" rows="5"></textarea><p class="hint">줄바꿈 그대로 반영</p></div>
       <div class="form-field"><label class="input-label" for="nt-images">이미지 주소 (한 줄에 하나)</label><textarea class="input" id="nt-images" rows="3" spellcheck="false"></textarea></div>
@@ -672,7 +672,7 @@
   var PAL_DEFAULT = ["#BFD5EB", "#3370A8", "#1F5285", "#7FB4E8", "#E9F2FB", "#070B18", "#dceaf8", "#b9d3ec"];
   var TYPE_KEYS = ["type-display", "type-title", "type-body", "type-label"];
   var PRESETS = [{"name": "밤하늘 (기본)", "colors": ["#BFD5EB", "#3370A8", "#1F5285", "#7FB4E8", "#E9F2FB", "#070B18", "#dceaf8", "#b9d3ec"]}, {"name": "새벽 보라", "colors": ["#CFC7EC", "#5B4A9E", "#3E3178", "#9C8BE0", "#F0EDFA", "#0B0819", "#e4dff5", "#c6bce9"]}, {"name": "민트 성운", "colors": ["#B6E3DA", "#2C8375", "#1C5F54", "#6FC7B6", "#E6F6F3", "#04150F", "#d8f0ea", "#b2ddd2"]}, {"name": "노을 살구", "colors": ["#F2CDB4", "#B0642F", "#8A4A1E", "#E39A66", "#FCF0E7", "#160C06", "#f7e3d3", "#eec7a9"]}, {"name": "모노 그레이", "colors": ["#CBD3DB", "#4A5560", "#333C45", "#8E9AA6", "#EEF1F4", "#0D1014", "#e3e8ec", "#c4ccd4"]}];
-  var TEXTS = {"mn-frame": {"page": "메인", "text": "STATION k4187421"}, "mn-kicker": {"page": "메인", "text": "SHUNI OFFICIAL · 관측 기록"}, "mn-eyebrow": {"page": "메인", "text": "the little star"}, "mn-live": {"page": "메인", "text": "방송국 가기 ↗"}, "mn-more": {"page": "메인", "text": "프로필 자세히"}, "mn-file": {"page": "메인", "text": "OBSERVER FILE · 기본 기록"}, "mn-about": {"page": "메인", "text": "SIGNAL · 소개"}, "mn-week": {"page": "메인", "text": "WEEKLY ORBIT · 이번 주 방송"}, "mn-notice": {"page": "메인", "text": "LATEST LOG · 최근 공지"}, "mn-notice-all": {"page": "메인", "text": "공지 전체 보기"}, "mn-links": {"page": "메인", "text": "CONSTELLATION MAP · 슈니를 만나는 곳"}, "mn-pages": {"page": "메인", "text": "STAR ATLAS · 페이지"}, "foot-mark": {"page": "메인", "text": "STAR ATLAS · HOME"}, "modal-k": {"page": "메인", "text": "SEND A SIGNAL · 익명"}, "modal-h": {"page": "메인", "text": "슈니에게 한마디"}, "modal-ok": {"page": "메인", "text": "신호가 도착했습니다"}, "pf-kicker": {"page": "프로필", "text": "LOG 01 · OBSERVATION"}, "pf-eyebrow": {"page": "프로필", "text": "the little star"}, "pf-frame": {"page": "프로필", "text": "FRAME 001"}, "pf-cast": {"page": "프로필", "text": "OBSERVER FILE · 기본 기록"}, "pf-orbit": {"page": "프로필", "text": "ORBIT &amp; VOID · 좋아 / 싫어"}, "pf-likes": {"page": "프로필", "text": "Orbit"}, "pf-dislikes": {"page": "프로필", "text": "Void"}, "pf-tmi": {"page": "프로필", "text": "SMALL FACTS · TMI"}, "pf-signal": {"page": "프로필", "text": "SIGNAL · 소개"}, "pf-signal-h": {"page": "프로필", "text": "밤하늘에서 보내는 신호"}, "pf-personality": {"page": "프로필", "text": "Personality"}, "pf-catch": {"page": "프로필", "text": "Catchphrase"}, "pf-keywords": {"page": "프로필", "text": "Keywords"}, "pf-week": {"page": "프로필", "text": "WEEKLY ORBIT · 이번 주 방송"}, "pf-stats": {"page": "프로필", "text": "STAR CHART · 능력치"}, "pf-mile": {"page": "프로필", "text": "TRAJECTORY · 목표"}, "pf-song": {"page": "프로필", "text": "FREQUENCY · 노래"}, "pf-song-sig": {"page": "프로필", "text": "SIGNATURE"}, "pf-song-genre": {"page": "프로필", "text": "자주 부르는 장르"}, "pf-song-avoid": {"page": "프로필", "text": "잘 안 부르는 장르"}, "pf-song-btn": {"page": "프로필", "text": "노래 클립 듣기 ↗"}, "pf-vod": {"page": "프로필", "text": "REPLAY · 다시보기"}, "pf-filmo": {"page": "프로필", "text": "OBSERVATION LOG · 진행 · 참여한 컨텐츠"}, "pf-links": {"page": "프로필", "text": "CONSTELLATION MAP · 슈니를 만나는 곳"}, "pf-send": {"page": "프로필", "text": "SEND A SIGNAL"}, "dy-kicker": {"page": "일기", "text": "LOG 07 · JOURNAL"}, "dy-eyebrow": {"page": "일기", "text": "notes from the night"}, "dy-desc": {"page": "일기", "text": "슈니가 남긴 기록입니다. 한마디 남길 수 있습니다."}, "dy-cmt": {"page": "일기", "text": "COMMENTS · 한마디"}, "dr-kicker": {"page": "옷장", "text": "LOG 05 · WARDROBE"}, "dr-eyebrow": {"page": "옷장", "text": "what the star wears"}, "dr-desc": {"page": "옷장", "text": "헤어 · 의상 · 렌즈를 모아 두었습니다."}, "dr-mode-new": {"page": "옷장", "text": "✦ 새 옷"}, "dr-mode-old": {"page": "옷장", "text": "◇ 기존 옷"}, "gm-kicker": {"page": "미니게임", "text": "LOG 08 · DRAW LOTS"}, "gm-eyebrow": {"page": "미니게임", "text": "let the stars decide"}, "gm-desc": {"page": "미니게임", "text": "방송에서 뽑기할 때 쓰는 사다리타기 · 구슬 레이스 · 룰렛입니다."}, "gm-m1": {"page": "미니게임", "text": "사다리타기"}, "gm-m2": {"page": "미니게임", "text": "구슬 레이스"}, "gm-m3": {"page": "미니게임", "text": "룰렛"}, "gm-ladder": {"page": "미니게임", "text": "LADDER · 사다리타기"}, "gm-marble": {"page": "미니게임", "text": "MARBLE RACE · 구슬 레이스"}, "gm-wheel": {"page": "미니게임", "text": "SPIN WHEEL · 룰렛"}, "nt-kicker": {"page": "공지", "text": "LOG 02 · BROADCAST"}, "nt-eyebrow": {"page": "공지", "text": "from the observatory"}, "nt-desc": {"page": "공지", "text": "슈니가 전하는 소식입니다."}, "sc-kicker": {"page": "일정", "text": "LOG 03 · ORBIT"}, "sc-eyebrow": {"page": "일정", "text": "when the star is up"}, "sc-desc": {"page": "일정", "text": "방송 예정과 휴방을 달력으로 정리했습니다."}, "sc-up": {"page": "일정", "text": "UPCOMING · 다가오는 일정"}, "sg-kicker": {"page": "노래책", "text": "LOG 04 · FREQUENCY"}, "sg-eyebrow": {"page": "노래책", "text": "what the star sings"}, "sg-desc": {"page": "노래책", "text": "신청할 수 있는 곡 목록입니다."}, "sg-pick": {"page": "노래책", "text": "RANDOM PICK · 랜덤 선곡"}, "sg-picked": {"page": "노래책", "text": "PICKED"}, "sg-roll": {"page": "노래책", "text": "곡 뽑기 ✦"}, "sg-again": {"page": "노래책", "text": "다시 뽑기"}, "sg-copy": {"page": "노래책", "text": "제목 복사"}, "wk-kicker": {"page": "업보", "text": "LOG 06 · LEDGER"}, "wk-eyebrow": {"page": "업보", "text": "what the star owes"}, "wk-desc": {"page": "업보", "text": "시청자별 업보 기록입니다. 카드를 누르면 종류별로 볼 수 있습니다."}};
+  var TEXTS = {"mn-vol": {"page": "메인", "text": "VOL. 01"}, "mn-eyebrow": {"page": "메인", "text": "the little star"}, "mn-meet": {"page": "메인", "text": "MEET SHUNI"}, "mn-signal": {"page": "메인", "text": "SEND A SIGNAL"}, "mn-cap": {"page": "메인", "text": "TALK · GAME · SING"}, "mn-side": {"page": "메인", "text": "LITTLE STAR SHUNI"}, "foot-mark": {"page": "메인", "text": "STAR ATLAS · HOME"}, "modal-k": {"page": "메인", "text": "SEND A SIGNAL · 익명"}, "modal-h": {"page": "메인", "text": "슈니에게 한마디"}, "modal-ok": {"page": "메인", "text": "신호가 도착했습니다"}, "pf-kicker": {"page": "프로필", "text": "LOG 01 · OBSERVATION"}, "pf-eyebrow": {"page": "프로필", "text": "the little star"}, "pf-frame": {"page": "프로필", "text": "FRAME 001"}, "pf-cast": {"page": "프로필", "text": "OBSERVER FILE · 기본 기록"}, "pf-orbit": {"page": "프로필", "text": "ORBIT &amp; VOID · 좋아 / 싫어"}, "pf-likes": {"page": "프로필", "text": "Orbit"}, "pf-dislikes": {"page": "프로필", "text": "Void"}, "pf-tmi": {"page": "프로필", "text": "SMALL FACTS · TMI"}, "pf-signal": {"page": "프로필", "text": "SIGNAL · 소개"}, "pf-signal-h": {"page": "프로필", "text": "밤하늘에서 보내는 신호"}, "pf-personality": {"page": "프로필", "text": "Personality"}, "pf-catch": {"page": "프로필", "text": "Catchphrase"}, "pf-keywords": {"page": "프로필", "text": "Keywords"}, "pf-week": {"page": "프로필", "text": "WEEKLY ORBIT · 이번 주 방송"}, "pf-stats": {"page": "프로필", "text": "STAR CHART · 능력치"}, "pf-mile": {"page": "프로필", "text": "TRAJECTORY · 목표"}, "pf-song": {"page": "프로필", "text": "FREQUENCY · 노래"}, "pf-song-sig": {"page": "프로필", "text": "SIGNATURE"}, "pf-song-genre": {"page": "프로필", "text": "자주 부르는 장르"}, "pf-song-avoid": {"page": "프로필", "text": "잘 안 부르는 장르"}, "pf-song-btn": {"page": "프로필", "text": "노래 클립 듣기 ↗"}, "pf-vod": {"page": "프로필", "text": "REPLAY · 다시보기"}, "pf-filmo": {"page": "프로필", "text": "OBSERVATION LOG · 진행 · 참여한 컨텐츠"}, "pf-links": {"page": "프로필", "text": "CONSTELLATION MAP · 슈니를 만나는 곳"}, "pf-send": {"page": "프로필", "text": "SEND A SIGNAL ✦"}, "nt-kicker": {"page": "공지", "text": "LOG 02 · BROADCAST"}, "nt-eyebrow": {"page": "공지", "text": "from the observatory"}, "nt-desc": {"page": "공지", "text": "슈니가 전하는 소식입니다."}, "sc-kicker": {"page": "일정", "text": "LOG 03 · ORBIT"}, "sc-eyebrow": {"page": "일정", "text": "when the star is up"}, "sc-desc": {"page": "일정", "text": "방송 예정과 휴방을 달력으로 정리했습니다."}, "sc-up": {"page": "일정", "text": "UPCOMING · 다가오는 일정"}, "sg-kicker": {"page": "노래책", "text": "LOG 04 · FREQUENCY"}, "sg-eyebrow": {"page": "노래책", "text": "what the star sings"}, "sg-desc": {"page": "노래책", "text": "신청할 수 있는 곡 목록입니다."}, "sg-pick": {"page": "노래책", "text": "RANDOM PICK · 랜덤 선곡"}, "sg-picked": {"page": "노래책", "text": "PICKED"}, "sg-roll": {"page": "노래책", "text": "곡 뽑기 ✦"}, "sg-again": {"page": "노래책", "text": "다시 뽑기"}, "sg-copy": {"page": "노래책", "text": "제목 복사"}, "dr-kicker": {"page": "옷장", "text": "LOG 05 · WARDROBE"}, "dr-eyebrow": {"page": "옷장", "text": "what the star wears"}, "dr-desc": {"page": "옷장", "text": "헤어 · 의상 · 렌즈를 모아 두었습니다."}, "dr-mode-new": {"page": "옷장", "text": "✦ 새 옷"}, "dr-mode-old": {"page": "옷장", "text": "◇ 기존 옷"}, "wk-kicker": {"page": "업보", "text": "LOG 06 · LEDGER"}, "wk-eyebrow": {"page": "업보", "text": "what the star owes"}, "wk-desc": {"page": "업보", "text": "시청자별 업보 기록입니다. 카드를 누르면 종류별로 볼 수 있습니다."}, "dy-kicker": {"page": "일기", "text": "LOG 07 · JOURNAL"}, "dy-eyebrow": {"page": "일기", "text": "notes from the night"}, "dy-desc": {"page": "일기", "text": "슈니가 남긴 기록입니다. 한마디 남길 수 있습니다."}, "dy-cmt": {"page": "일기", "text": "COMMENTS · 한마디"}, "gm-kicker": {"page": "미니게임", "text": "LOG 08 · DRAW LOTS"}, "gm-eyebrow": {"page": "미니게임", "text": "let the stars decide"}, "gm-desc": {"page": "미니게임", "text": "방송에서 뽑기할 때 쓰는 사다리타기 · 구슬 레이스 · 룰렛입니다."}, "gm-m1": {"page": "미니게임", "text": "사다리타기"}, "gm-m2": {"page": "미니게임", "text": "구슬 레이스"}, "gm-m3": {"page": "미니게임", "text": "룰렛"}, "gm-ladder": {"page": "미니게임", "text": "LADDER · 사다리타기"}, "gm-marble": {"page": "미니게임", "text": "MARBLE RACE · 구슬 레이스"}, "gm-wheel": {"page": "미니게임", "text": "SPIN WHEEL · 룰렛"}};
   var GENRES = ['K-POP', 'J-POP', '애니', 'OST', '기타'];   /* keep in sync with song/index.html GENRES */
   var DRESS_CATS = ['hair', 'outfit', 'lens'];              /* keep in sync with dress/index.html CATS + select#dr-cat */
 

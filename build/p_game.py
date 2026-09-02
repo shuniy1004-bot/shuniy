@@ -241,7 +241,7 @@ SCRIPT = SHARED_TAIL + """
       var G = window.SHUNI_GAME, W = window.SHUNI_WHEEL;
       var PC = ['#3370A8','#7FB4E8','#2f8f6e','#9a7a17','#6b57ad','#b8557f','#b06526','#2aa9c9','#5b8de0','#b34141'];
 
-      /* ================= ladder (moyo original) ================= */
+      /* ladder */
       var ldCv = document.getElementById('ld-canvas');
       var ldRunner = document.getElementById('ld-runner');
       var ldN = 4, ldPhase = 'setup', ldL = null, ldBusy = false, ldDone = {};
@@ -302,7 +302,7 @@ SCRIPT = SHARED_TAIL + """
         var ctx = ldCv.getContext('2d');
         var g = ldGeom();
         ctx.clearRect(0, 0, g.w, g.h);
-        /* the moyo original never draws the horizontal bars: only the runner
+        /* the reference ladder never draws the horizontal bars: only the runner
            reveals where they were */
         ctx.lineCap = 'round';
         ctx.lineWidth = 3;
@@ -423,7 +423,7 @@ SCRIPT = SHARED_TAIL + """
       })();
       ldRenderRows(); ldDrawBase();
 
-      /* ================= marble race ================= */
+      /* marble race */
       var rlCv = document.getElementById('rl-canvas');
       var rlMini = document.getElementById('rl-mini');
       var RLV = { w: 560, h: 740, unit: 26 };
@@ -650,7 +650,7 @@ SCRIPT = SHARED_TAIL + """
       });
       rlBuild();
 
-      /* ================= spin wheel ================= */
+      /* spin wheel */
       var whCv = document.getElementById('wh-canvas');
       var whEntries = [], whSegs = [], whTurns = 0, whSpinning = false, whHist = [];
 
@@ -758,7 +758,7 @@ SCRIPT = SHARED_TAIL + """
       document.getElementById('wh-reset').addEventListener('click', function () { whHist = []; renderHist(); });
       whRead(); renderHist();
 
-      /* ================= mode switch ================= */
+      /* mode switch */
       document.querySelectorAll('#mode-seg .seg-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var mode = btn.dataset.mode;

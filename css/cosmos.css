@@ -86,9 +86,7 @@ body.sn-sub.dark{
   background-attachment:fixed,fixed,fixed,fixed;
 }
 
-/* ============================================================
-   Header — identical markup on every page
-   ============================================================ */
+/* Header — identical markup on every page */
 .site-header{
   position:fixed;z-index:30;top:0;left:0;width:100%;
   display:grid;grid-template-columns:clamp(96px,8vw,150px) 1fr minmax(232px,auto);
@@ -158,9 +156,7 @@ body.embed .chapter{min-height:0}
 }
 body.embed .open-full{display:inline-flex}
 
-/* ============================================================
-   Chapter head — magazine plate
-   ============================================================ */
+/* Chapter head — magazine plate */
 /* Transparent layout boxes would swallow clicks over the whole column, so the
    characters drifting behind the cards stay reachable in the gaps and margins.
    Only boxes that actually paint something take the click back. */
@@ -198,9 +194,7 @@ body:not(.embed) .chapter{min-height:100vh}
 }
 body.dark .chapter-ghost{-webkit-text-stroke-color:rgba(191,213,235,.17)}
 
-/* ============================================================
-   Card system — glass panel + numbered kicker
-   ============================================================ */
+/* Card system — glass panel + numbered kicker */
 .sn-card{
   position:relative;
   border:1px solid var(--line);
@@ -285,9 +279,7 @@ body.dark .sn-chip{background:rgba(191,213,235,.07)}
 
 .sn-link{color:var(--accent-txt);text-decoration:underline;text-underline-offset:3px;word-break:break-all}
 
-/* ============================================================
-   Signal (inquiry) modal
-   ============================================================ */
+/* Signal (inquiry) modal */
 #snMask{position:fixed;inset:0;z-index:80;background:rgba(6,12,26,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity 220ms ease}
 #snMask.on{opacity:1;pointer-events:auto}
 #snLetter{
@@ -320,9 +312,7 @@ body.embed #snMask,body.embed #snLetter{position:absolute}
 body.embed #snLetter{top:0;left:50%;transform:translate(-50%,0)}
 body.embed #snLetter.on{transform:translate(-50%,0)}
 
-/* ============================================================
-   Star field · click sparkle · drifting fan characters · cover
-   ============================================================ */
+/* Star field · click sparkle · drifting fan characters · cover */
 #snStars{position:fixed;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;contain:strict}
 body.embed #snStars{position:absolute}
 #snStars i{
@@ -423,9 +413,7 @@ body:not(.ready) .rv{transition-delay:9999s}
 
 a:focus-visible,button:focus-visible{outline:2px solid var(--point);outline-offset:4px}
 
-/* ============================================================
-   Responsive — breakpoints stay under the SOOP embed width (~1000-1100px)
-   ============================================================ */
+/* Responsive — breakpoints stay under the SOOP embed width (~1000-1100px) */
 /* 960~1140px is the SOOP embed band: the nav must not touch the buttons there */
 @media (max-width:1140px){
   .main-navigation{gap:clamp(11px,1.5vw,22px)}
@@ -482,11 +470,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--point);outline-offs
   .rv{opacity:1 !important;transform:none !important}
 }
 
-/* ============================================================
-   Shared category furniture — notice, schedule, song, dress, work, diary
+/* Shared category furniture — notice, schedule, song, dress, work, diary
    Layout language stays the profile's: hairline borders, glass panels,
-   radius 0, serif italic micro labels.
-   ============================================================ */
+   radius 0, serif italic micro labels. */
 .sn-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 18px}
 .sn-toolbar .grow{flex:1;min-width:120px}
 .sn-count{color:var(--tx-dim);font-family:var(--font-serif);font-style:italic;font-size:calc(14px * var(--fs-label));letter-spacing:.06em}

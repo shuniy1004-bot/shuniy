@@ -1,51 +1,27 @@
 {
- "mn-frame": {
+ "mn-vol": {
   "page": "메인",
-  "text": "STATION k4187421"
- },
- "mn-kicker": {
-  "page": "메인",
-  "text": "SHUNI OFFICIAL · 관측 기록"
+  "text": "VOL. 01"
  },
  "mn-eyebrow": {
   "page": "메인",
   "text": "the little star"
  },
- "mn-live": {
+ "mn-meet": {
   "page": "메인",
-  "text": "방송국 가기 ↗"
+  "text": "MEET SHUNI"
  },
- "mn-more": {
+ "mn-signal": {
   "page": "메인",
-  "text": "프로필 자세히"
+  "text": "SEND A SIGNAL"
  },
- "mn-file": {
+ "mn-cap": {
   "page": "메인",
-  "text": "OBSERVER FILE · 기본 기록"
+  "text": "TALK · GAME · SING"
  },
- "mn-about": {
+ "mn-side": {
   "page": "메인",
-  "text": "SIGNAL · 소개"
- },
- "mn-week": {
-  "page": "메인",
-  "text": "WEEKLY ORBIT · 이번 주 방송"
- },
- "mn-notice": {
-  "page": "메인",
-  "text": "LATEST LOG · 최근 공지"
- },
- "mn-notice-all": {
-  "page": "메인",
-  "text": "공지 전체 보기"
- },
- "mn-links": {
-  "page": "메인",
-  "text": "CONSTELLATION MAP · 슈니를 만나는 곳"
- },
- "mn-pages": {
-  "page": "메인",
-  "text": "STAR ATLAS · 페이지"
+  "text": "LITTLE STAR SHUNI"
  },
  "foot-mark": {
   "page": "메인",
@@ -161,79 +137,7 @@
  },
  "pf-send": {
   "page": "프로필",
-  "text": "SEND A SIGNAL"
- },
- "dy-kicker": {
-  "page": "일기",
-  "text": "LOG 07 · JOURNAL"
- },
- "dy-eyebrow": {
-  "page": "일기",
-  "text": "notes from the night"
- },
- "dy-desc": {
-  "page": "일기",
-  "text": "슈니가 남긴 기록입니다. 한마디 남길 수 있습니다."
- },
- "dy-cmt": {
-  "page": "일기",
-  "text": "COMMENTS · 한마디"
- },
- "dr-kicker": {
-  "page": "옷장",
-  "text": "LOG 05 · WARDROBE"
- },
- "dr-eyebrow": {
-  "page": "옷장",
-  "text": "what the star wears"
- },
- "dr-desc": {
-  "page": "옷장",
-  "text": "헤어 · 의상 · 렌즈를 모아 두었습니다."
- },
- "dr-mode-new": {
-  "page": "옷장",
-  "text": "✦ 새 옷"
- },
- "dr-mode-old": {
-  "page": "옷장",
-  "text": "◇ 기존 옷"
- },
- "gm-kicker": {
-  "page": "미니게임",
-  "text": "LOG 08 · DRAW LOTS"
- },
- "gm-eyebrow": {
-  "page": "미니게임",
-  "text": "let the stars decide"
- },
- "gm-desc": {
-  "page": "미니게임",
-  "text": "방송에서 뽑기할 때 쓰는 사다리타기 · 구슬 레이스 · 룰렛입니다."
- },
- "gm-m1": {
-  "page": "미니게임",
-  "text": "사다리타기"
- },
- "gm-m2": {
-  "page": "미니게임",
-  "text": "구슬 레이스"
- },
- "gm-m3": {
-  "page": "미니게임",
-  "text": "룰렛"
- },
- "gm-ladder": {
-  "page": "미니게임",
-  "text": "LADDER · 사다리타기"
- },
- "gm-marble": {
-  "page": "미니게임",
-  "text": "MARBLE RACE · 구슬 레이스"
- },
- "gm-wheel": {
-  "page": "미니게임",
-  "text": "SPIN WHEEL · 룰렛"
+  "text": "SEND A SIGNAL ✦"
  },
  "nt-kicker": {
   "page": "공지",
@@ -295,6 +199,26 @@
   "page": "노래책",
   "text": "제목 복사"
  },
+ "dr-kicker": {
+  "page": "옷장",
+  "text": "LOG 05 · WARDROBE"
+ },
+ "dr-eyebrow": {
+  "page": "옷장",
+  "text": "what the star wears"
+ },
+ "dr-desc": {
+  "page": "옷장",
+  "text": "헤어 · 의상 · 렌즈를 모아 두었습니다."
+ },
+ "dr-mode-new": {
+  "page": "옷장",
+  "text": "✦ 새 옷"
+ },
+ "dr-mode-old": {
+  "page": "옷장",
+  "text": "◇ 기존 옷"
+ },
  "wk-kicker": {
   "page": "업보",
   "text": "LOG 06 · LEDGER"
@@ -306,5 +230,57 @@
  "wk-desc": {
   "page": "업보",
   "text": "시청자별 업보 기록입니다. 카드를 누르면 종류별로 볼 수 있습니다."
+ },
+ "dy-kicker": {
+  "page": "일기",
+  "text": "LOG 07 · JOURNAL"
+ },
+ "dy-eyebrow": {
+  "page": "일기",
+  "text": "notes from the night"
+ },
+ "dy-desc": {
+  "page": "일기",
+  "text": "슈니가 남긴 기록입니다. 한마디 남길 수 있습니다."
+ },
+ "dy-cmt": {
+  "page": "일기",
+  "text": "COMMENTS · 한마디"
+ },
+ "gm-kicker": {
+  "page": "미니게임",
+  "text": "LOG 08 · DRAW LOTS"
+ },
+ "gm-eyebrow": {
+  "page": "미니게임",
+  "text": "let the stars decide"
+ },
+ "gm-desc": {
+  "page": "미니게임",
+  "text": "방송에서 뽑기할 때 쓰는 사다리타기 · 구슬 레이스 · 룰렛입니다."
+ },
+ "gm-m1": {
+  "page": "미니게임",
+  "text": "사다리타기"
+ },
+ "gm-m2": {
+  "page": "미니게임",
+  "text": "구슬 레이스"
+ },
+ "gm-m3": {
+  "page": "미니게임",
+  "text": "룰렛"
+ },
+ "gm-ladder": {
+  "page": "미니게임",
+  "text": "LADDER · 사다리타기"
+ },
+ "gm-marble": {
+  "page": "미니게임",
+  "text": "MARBLE RACE · 구슬 레이스"
+ },
+ "gm-wheel": {
+  "page": "미니게임",
+  "text": "SPIN WHEEL · 룰렛"
  }
 }
