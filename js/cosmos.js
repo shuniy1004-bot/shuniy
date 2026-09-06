@@ -107,9 +107,12 @@
     }
   }
 
-  /* ---- drifting fan characters ----
+  /* ---- floating fan characters ----
      Image comes from profile.data.mong_img; without it a star sprite is used,
-     so the layer works before the artwork exists. */
+     so the layer works before the artwork exists.
+     Each one gets its own drift path, sway and speed from CSS variables, and
+     backs away from the pointer. Sizes are px, never viewport units: the SOOP
+     app hands an iframe a viewport thousands of px tall. */
   var STAR_SPRITE = 'data:image/svg+xml;base64,' + btoa(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">' +
     '<defs><radialGradient id="g" cx="50%" cy="42%"><stop offset="0" stop-color="#ffffff"/>' +
@@ -121,6 +124,52 @@
 
   var MONG_LINES = ['반짝', '슈니 보러 왔어?', '오늘도 별 하나', '히히', '나 여기 있다', '별 이어줘'];
   var mongLayer = $('#snMongs');
+  var DODGE_R = 150;   /* px around the pointer that pushes a character */
+  var DODGE_MAX = 34;  /* px it slides away at most */
+  var mongPool = [], ptr = null, dodgeRaf = 0;
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function pick(a, b) { return (Math.random() < .5 ? -1 : 1) * rnd(a, b); }
+
+  function dodge() {
+    dodgeRaf = 0;
+    var anyNear = false;
+    for (var i = 0; i < mongPool.length; i++) {
+      var m = mongPool[i];
+      /* the push lives on the sprite inside, so this outer box is the resting
+         centre: measuring it keeps the push from feeding back into itself */
+      var r = m.getBoundingClientRect();
+      var cx = r.left + r.width / 2;
+      var cy = r.top + r.height / 2;
+      var dx = ptr ? cx - ptr.x : 0, dy = ptr ? cy - ptr.y : 0;
+      var d = Math.sqrt(dx * dx + dy * dy);
+      var px = 0, py = 0;
+      if (ptr && d < DODGE_R) {
+        var f = (1 - d / DODGE_R) * DODGE_MAX;
+        if (d < .5) {   /* pointer exactly on the centre: fall back to its own angle */
+          var a = +m.dataset.ang || 0;
+          dx = Math.cos(a); dy = Math.sin(a); d = 1;
+        }
+        px = dx / d * f; py = dy / d * f;
+      }
+      m.dataset.px = px.toFixed(1); m.dataset.py = py.toFixed(1);
+      m.style.setProperty('--pushx', px.toFixed(1) + 'px');
+      m.style.setProperty('--pushy', py.toFixed(1) + 'px');
+      if (px !== 0 || py !== 0) anyNear = true;
+      m.classList.toggle('near', px !== 0 || py !== 0);
+    }
+    /* keep following while someone is close, so a character drifting past a
+       resting cursor still gets out of its way */
+    if (anyNear && ptr) queueDodge();
+  }
+  function queueDodge() { if (!dodgeRaf) dodgeRaf = requestAnimationFrame(dodge); }
+
+  document.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'touch' || !mongPool.length) return;
+    ptr = { x: e.clientX, y: e.clientY };
+    queueDodge();
+  }, { passive: true });
+  document.addEventListener('pointerleave', function () { ptr = null; queueDodge(); });
 
   SN.mongs = function (opts) {
     if (!mongLayer || noMotion) return;
@@ -129,19 +178,30 @@
     var lines = (opts.lines && opts.lines.length) ? opts.lines : MONG_LINES;
     var n = Math.max(0, Math.min(6, parseInt(opts.count, 10) || 3));
     mongLayer.innerHTML = '';
+    mongPool = [];
     for (var i = 0; i < n; i++) {
       var m = document.createElement('div');
       m.className = 'sn-mong';
       m.setAttribute('role', 'button');
       m.setAttribute('tabindex', '0');
       m.setAttribute('aria-label', '팬 캐릭터');
-      m.style.backgroundImage = 'url("' + img + '")';
-      m.style.setProperty('--mw', (46 + Math.random() * 26).toFixed(0) + 'px');
-      m.style.setProperty('--my', (-14 - Math.random() * 34).toFixed(0) + 'px');
-      m.style.top = (12 + Math.random() * 64) + '%';
-      m.style.animationDuration = (34 + Math.random() * 26).toFixed(1) + 's';
-      m.style.animationDelay = (-Math.random() * 40).toFixed(1) + 's';
+      /* spread across bands so they never all start in one corner */
+      m.style.setProperty('--mw', rnd(44, 74).toFixed(0) + 'px');
+      m.style.setProperty('--mx', (14 + (i + .5) / n * 72 + rnd(-6, 6)).toFixed(1) + '%');
+      m.style.setProperty('--my', rnd(14, 78).toFixed(1) + '%');
+      m.style.setProperty('--dx', pick(55, 110).toFixed(0) + 'px');
+      m.style.setProperty('--dy', pick(40, 95).toFixed(0) + 'px');
+      m.style.setProperty('--rot', rnd(5, 14).toFixed(1) + 'deg');
+      m.style.setProperty('--mdur', rnd(38, 68).toFixed(1) + 's');
+      m.style.setProperty('--sdur', rnd(7, 13).toFixed(1) + 's');
+      m.style.setProperty('--mdelay', (-rnd(0, 60)).toFixed(1) + 's');
+      m.style.setProperty('--sdelay', (-rnd(0, 12)).toFixed(1) + 's');
+      m.dataset.ang = (i / Math.max(1, n) * Math.PI * 2).toFixed(3);
+      var sprite = document.createElement('i');
+      sprite.style.backgroundImage = 'url("' + img + '")';
+      m.appendChild(sprite);
       mongLayer.appendChild(m);
+      mongPool.push(m);
     }
     var say = function (el) {
       el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
@@ -155,6 +215,12 @@
       setTimeout(function () { b.remove(); }, 1750);
       SN.pop(r.left + r.width / 2, r.top + r.height / 2, 4);
     };
+    mongLayer.addEventListener('pointerover', function (e) {
+      var t = e.target.closest && e.target.closest('.sn-mong');
+      if (!t || t.classList.contains('wiggle') || t.classList.contains('bump')) return;
+      t.classList.add('wiggle');
+      setTimeout(function () { t.classList.remove('wiggle'); }, 660);
+    });
     mongLayer.addEventListener('click', function (e) {
       var t = e.target.closest && e.target.closest('.sn-mong');
       if (t) say(t);

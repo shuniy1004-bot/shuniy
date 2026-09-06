@@ -332,30 +332,53 @@ body.embed #snStars i.fall{display:none}
   100%{transform:translate3d(3vw,108vh,0) rotate(220deg);opacity:.12}
 }
 
-/* fan characters drifting across the sky */
+/* fan characters floating in place, weightless */
 /* the fan characters drift behind the glass cards: over them they would sit on
    top of the text and make it unreadable mid-flight */
 #snMongs{position:fixed;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;contain:strict}
 body.embed #snMongs{position:absolute}
+/* Outer box carries the drift path and the sway; the sprite inside carries the
+   pointer dodge and the reactions. translate / rotate / scale are separate
+   properties, so the three can run at once without overwriting each other. */
 .sn-mong{
-  position:absolute;width:var(--mw,58px);height:var(--mw,58px);
+  position:absolute;left:var(--mx,50%);top:var(--my,40%);
+  width:var(--mw,58px);height:var(--mw,58px);margin:calc(var(--mw,58px) / -2);
   pointer-events:auto;cursor:pointer;
+  animation:mongDrift var(--mdur,48s) ease-in-out infinite,
+            mongSway var(--sdur,10s) ease-in-out infinite alternate;
+  animation-delay:var(--mdelay,0s),var(--sdelay,0s);
+}
+.sn-mong i{
+  display:block;width:100%;height:100%;
   background:center/contain no-repeat;
   /* they pass behind headings that sit on no card, so keep them soft */
   opacity:.62;
   filter:drop-shadow(0 4px 14px rgba(31,82,133,.28));
-  animation:mongFloat linear infinite;
-  transition:transform 180ms ease;
+  translate:var(--pushx,0) var(--pushy,0);
+  transition:translate 420ms cubic-bezier(.2,.75,.25,1),scale 200ms ease,opacity 240ms ease;
 }
-body.dark .sn-mong{filter:drop-shadow(0 0 12px rgba(191,213,235,.4))}
-.sn-mong:hover{scale:1.12;opacity:1}
-.sn-mong.bump{animation:mongFloat linear infinite,mongBump 560ms cubic-bezier(.2,.75,.25,1)}
-@keyframes mongFloat{
-  0%{transform:translate3d(-14vw,0,0)}
-  50%{transform:translate3d(44vw,var(--my,-26px),0)}
-  100%{transform:translate3d(112vw,0,0)}
+body.dark .sn-mong i{filter:drop-shadow(0 0 12px rgba(191,213,235,.4))}
+.sn-mong.near i{opacity:.9}
+.sn-mong:hover i,.sn-mong:focus-visible i{scale:1.16;opacity:1}
+.sn-mong.wiggle i{animation:mongWiggle 660ms cubic-bezier(.3,.7,.3,1)}
+.sn-mong.bump i{animation:mongBump 560ms cubic-bezier(.2,.75,.25,1)}
+@keyframes mongDrift{
+  0%{translate:0 0}
+  25%{translate:var(--dx,80px) calc(var(--dy,60px) * -1)}
+  50%{translate:calc(var(--dx,80px) * .35) var(--dy,60px)}
+  75%{translate:calc(var(--dx,80px) * -1) calc(var(--dy,60px) * .45)}
+  100%{translate:0 0}
 }
-@keyframes mongBump{30%{scale:1.22}60%{scale:.94}100%{scale:1}}
+@keyframes mongSway{0%{rotate:calc(var(--rot,9deg) * -1)}100%{rotate:var(--rot,9deg)}}
+@keyframes mongWiggle{
+  0%{rotate:0;scale:1}
+  18%{rotate:-15deg;scale:1.12}
+  42%{rotate:12deg;scale:1.16}
+  66%{rotate:-7deg;scale:1.1}
+  86%{rotate:3deg;scale:1.14}
+  100%{rotate:0;scale:1.16}
+}
+@keyframes mongBump{0%{scale:1}30%{scale:1.3}60%{scale:.92}100%{scale:1}}
 .sn-bubble{
   position:absolute;z-index:3;padding:8px 13px;
   border:1px solid var(--line);background:var(--glass-deep);

@@ -20,7 +20,7 @@ CSS = """
     }
     .cal-dow:first-child,.cal-dow:last-child{color:var(--accent-txt)}
     .cal-cell{
-      position:relative;min-height:80px;padding:5px 5px 6px;
+      position:relative;min-height:92px;padding:5px 5px 6px;
       border-top:1px solid var(--line-soft);border-right:1px solid var(--line-soft);
       overflow:hidden;
     }
@@ -58,6 +58,10 @@ CSS = """
     .up-d1{font-family:var(--font-serif);font-style:italic;font-size:calc(14px * var(--fs-label));color:var(--tx-dim);white-space:nowrap}
     .up-title{font-size:calc(15px * var(--fs-body));font-weight:700;line-height:1.5;min-width:0}
     .up-time{font-size:calc(13.5px * var(--fs-label));color:var(--tx-dim);white-space:nowrap}
+    .up-part{
+      margin-left:8px;padding:1px 6px;border:1px solid var(--line);
+      color:var(--tx-dim);font-size:calc(12px * var(--fs-label));font-style:normal;font-weight:800;
+    }
     .up-badge{padding:3px 9px;border:1px solid var(--ec);color:var(--ec);background:var(--eb);font-size:calc(12px * var(--fs-label));font-weight:900;letter-spacing:.1em;white-space:nowrap}
 
     .m-date{margin:0 0 16px;font-family:var(--font-serif);font-style:italic;font-size:calc(21px * var(--fs-title))}
@@ -68,7 +72,7 @@ CSS = """
     .m-desc{margin-top:14px;color:var(--tx-soft);font-size:calc(14.5px * var(--fs-body));line-height:1.8;white-space:pre-wrap}
 
     @media (max-width:959px){
-      .cal-cell{min-height:66px;padding:4px 4px 5px}
+      .cal-cell{min-height:80px;padding:4px 4px 5px}
       .band{margin:3px -5px 0 -4px}
       .ev,.band{font-size:calc(12px * var(--fs-label))}
       .up-item{grid-template-columns:auto 1fr;gap:8px}
@@ -133,16 +137,25 @@ SCRIPT = SHARED_TAIL + """
           var hl = events.some(function (e) { return e.highlight; });
           var bandUsed = false;                       /* one band per cell */
           var evHtml = events.map(function (e) {
+            var base = e.title || (kind(e.type) === 'off' ? '휴방' : '방송');
+            /* the cell shows both parts: 2부 is a second line, not modal-only */
+            var second = '';
+            if (e.title2 || e.time2) {
+              var l2 = (e.time2 ? e.time2 + ' ' : '') + (e.title2 || base);
+              second = '<div class="ev ' + colorClass(e) + '" title="' + esc(l2) + '">' + esc(l2) + '</div>';
+            }
             var ranged = e.end_date && e.end_date !== e.date;
             if (ranged) {
               if (bandUsed) return '';
               bandUsed = true;
               var caps = (dateStr === e.date ? ' b-start' : '') + (dateStr === e.end_date ? ' b-end' : '');
-              var btxt = (e.time ? e.time + ' ' : '') + (e.title || (kind(e.type) === 'off' ? '휴방' : '방송'));
-              return '<div class="band' + caps + ' ' + colorClass(e) + '">' + (dateStr === e.date ? '<span>' + esc(btxt) + '</span>' : '') + '</div>';
+              var btxt = (e.time ? e.time + ' ' : '') + base;
+              return '<div class="band' + caps + ' ' + colorClass(e) + '">' +
+                (dateStr === e.date ? '<span>' + esc(btxt) + '</span>' : '') + '</div>' +
+                (dateStr === e.date ? second : '');
             }
-            var label = (e.time ? e.time + ' ' : '') + (e.title || (kind(e.type) === 'off' ? '휴방' : '방송'));
-            return '<div class="ev ' + colorClass(e) + '" title="' + esc(label) + '">' + esc(label) + '</div>';
+            var label = (e.time ? e.time + ' ' : '') + base;
+            return '<div class="ev ' + colorClass(e) + '" title="' + esc(label) + '">' + esc(label) + '</div>' + second;
           }).join('');
           var cls = 'cal-cell' + (isToday ? ' today' : '') + (events.length ? ' has' : '') + (hl ? ' hl' : '') + (bandUsed ? ' hasband' : '');
           var click = events.length ? ' data-day="' + dateStr + '"' : '';
@@ -160,18 +173,25 @@ SCRIPT = SHARED_TAIL + """
       function renderUpcoming() {
         var now = new Date();
         var today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-        var upcoming = allSchedule.filter(function (s) { return (s.end_date || s.date) >= today; }).slice(0, 12);
+        var rows = allSchedule.filter(function (s) { return (s.end_date || s.date) >= today; });
+        /* 1부 and 2부 each get their own row, so no part is hidden behind a click */
+        var slots = [];
+        rows.forEach(function (s) {
+          slots.push({ row: s, time: s.time, title: s.title, part: 1 });
+          if (s.title2 || s.time2) slots.push({ row: s, time: s.time2, title: s.title2 || s.title, part: 2 });
+        });
+        var upcoming = slots.slice(0, 12);
         var el = document.getElementById('upcoming');
         if (!upcoming.length) { el.innerHTML = '<div class="sn-empty">다가오는 일정이 없습니다</div>'; return; }
-        el.innerHTML = upcoming.map(function (s) {
+        el.innerHTML = upcoming.map(function (u) {
+          var s = u.row;
           var dd = new Date(s.date + 'T00:00:00');
           var k = kind(s.type);
           var label = k === 'off' ? '휴방' : '방송';
-          var times = [s.time, s.time2].filter(Boolean).join(' · ');
           return '<div class="up-item ' + colorClass(s) + '" data-day="' + esc(s.date) + '">' +
             '<span class="up-d1">' + String(dd.getMonth() + 1).padStart(2, '0') + '-' + String(dd.getDate()).padStart(2, '0') + ' (' + DAYS[dd.getDay()] + ')</span>' +
-            '<span class="up-title">' + esc(s.title || label) + '</span>' +
-            (times ? '<span class="up-time">' + esc(times) + '</span>' : '<span></span>') +
+            '<span class="up-title">' + esc(u.title || label) + (u.part === 2 ? '<i class="up-part">2부</i>' : '') + '</span>' +
+            (u.time ? '<span class="up-time">' + esc(u.time) + '</span>' : '<span></span>') +
             '<span class="up-badge">' + label + '</span></div>';
         }).join('');
         el.querySelectorAll('[data-day]').forEach(function (r) {
